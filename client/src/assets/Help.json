@@ -1,0 +1,10 @@
+{
+  "name": "Alex",
+  "gender": "male",
+  "species": "Dog",
+  "age": 7,
+  "health": "Full health",
+  "nature": "Shy",
+  "photos": "/Alex.jpg",
+  "isAdopted": false
+}

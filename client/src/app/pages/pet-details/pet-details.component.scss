@@ -1,0 +1,136 @@
+
+
+.adopt-btn {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: #1b5e20;
+  }
+}
+
+.popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  .popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 1rem;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      margin: 0.5rem;
+      padding: 0.6rem 1.2rem;
+    }
+  }
+}
+
+.back-button {
+  position: fixed;
+  top: 40px;
+  left: 25px;
+  background-color: #c22f24;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #92231b;
+  }
+}
+
+.update-button {
+  position: fixed;
+  top: 40px;
+  right: 25px;
+  background-color: #2463c2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1d4e97;
+  }
+}
+
+.animal-details {
+  position: relative;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-decoration: underline;
+    color: #333;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    color: #555;
+
+    &:first-of-type {
+      margin-top: 1rem;
+    }
+  }
+
+  .fav-button {
+    width: 48px;
+    height: auto;
+    position: absolute;
+    top: 40px;
+    right: 230px;
+    font-size: 36px;
+    color: gold !important;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,129 @@
+.profile-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-container p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.profile-container strong {
+  color: #333;
+}
+
+select {
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 5px;
+  background-color: #f4f4f4;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+
+li:nth-child(odd) {
+  background-color: #e9e9e9;
+}
+
+.back-button {
+  position: fixed;
+  top: 40px;
+  left: 25px;
+  background-color: #c22f24;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #92231b;
+  }
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.delete-account-btn {
+  background-color: #ff4c4c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.delete-account-btn:hover {
+  background-color: #ff0000;
+}
+
+.popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.popup-buttons button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  border: none;
+  border-radius: 5px;
+}
+
+.confirm-btn {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}

@@ -1,0 +1,46 @@
+<button class="back-button" (click)="goBack()">Back</button>
+
+<div *ngIf="user" class="profile-container">
+
+  <h1>Profile</h1>
+
+  <p><strong>Name:</strong> {{ user.name }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Role:</strong> {{ user.role }}</p>
+
+  <!-- TODO -->
+  <div *ngIf="favouriteAnimals.length >= 0">
+    <h3>Your Favourite Pets:</h3>
+    <ul>
+      <li *ngFor="let pet of favouriteAnimals">
+        <a (click)="goToPetDetails(pet._id)" style="cursor: pointer;">
+          {{ pet.name }}, age: {{pet.age}}, gender: {{pet.gender}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+  <div>
+    <strong>Adoption Requests:</strong>
+    <ul>
+      <li *ngFor="let request of user.adoption_requests" [value]="request._id">
+        {{ request }}
+      </li>
+    </ul>
+  </div>
+  <div class="profile-actions">
+    <button (click)="deletePopupShow()" class="delete-account-btn">DELETE Account</button>
+  </div>
+
+</div>
+
+<div *ngIf="showDeletePopup" class="popup-backdrop">
+  <div class="popup-content">
+    <h3>Biztos, hogy törlöd véglegesen az accountod?</h3>
+    <div class="popup-buttons">
+      <button class="confirm-btn" (click)="deleteAccount()">Igen</button>
+      <button class="cancel-btn" (click)="closeDeletePopup()">Mégse</button>
+    </div>
+  </div>
+</div>

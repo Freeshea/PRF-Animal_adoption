@@ -1,0 +1,64 @@
+.home-container {
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #2f4f4f; /* Sötétzöld, finomabb árnyalat */
+  margin-bottom: 20px;
+}
+
+.animals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 4 kártya 1 sorban */
+  gap: 20px;
+  justify-content: center;
+}
+
+.animal-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.animal-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.animal-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.animal-card p {
+  color: #777;
+}
+
+.animal-card button {
+  background-color: #006400;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.animal-card button:hover {
+  background-color: #004d00;
+}
+
+
+.btn-interest{
+  background-color: #21af7d;
+  color: white;
+}
+
+.underlined{
+  text-decoration: underline;
+  font-weight: bold;
+}

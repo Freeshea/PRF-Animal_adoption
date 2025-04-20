@@ -1,0 +1,31 @@
+<button class="back-button" (click)="goBack()">Back</button>
+<div class="register-title">
+  <h2>Register form</h2>
+</div>
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <input type="text" formControlName="name" placeholder="Name / Username" />
+    <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+      Name is required.
+    </div>
+
+    <input type="email" formControlName="email" placeholder="Email" />
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      Email is required.
+    </div>
+
+    <input type="password" formControlName="password" placeholder="Password" />
+    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      Minimum of 8 characters is required.
+    </div>
+
+    <input type="password" formControlName="confirmPassword" placeholder="Password again" />
+    <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+      Passwords don't match.
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  </form>
+
+</div>

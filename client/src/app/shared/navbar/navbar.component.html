@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <a routerLink="/home" class="home-link">Home</a>
+
+  <div class="auth-links">
+    <ng-container *ngIf="!isLoggedIn; else loggedInTemplate">
+      <a routerLink="/register" class="auth-link">Register</a>
+      <a routerLink="/login" class="auth-link">Login</a>
+    </ng-container>
+
+    <ng-template #loggedInTemplate>
+      <a routerLink="/profile" class="auth-link">Profile</a>
+      <a (click)="logout()" class="auth-link">Logout</a>
+    </ng-template>
+  </div>
+</nav>

@@ -1,0 +1,26 @@
+[
+  {
+  "_id": "6804e7b8232d0e5ddff7e9d0",
+  "name": "teszt",
+  "email": "t@t.com",
+  "password": "teszt123",
+  "role": "user",
+  "favourite_animals": [],
+  "adoption_requests": [],
+  "createdAt": "2025-04-20T12:25:28.613Z",
+  "updatedAt": "2025-04-20T12:25:28.613Z",
+  "__v": 0
+},
+{
+  "_id": "6804ef987b681b497bebb0ae",
+  "name": "admin",
+  "email": "admin@admin.com",
+  "password": "admin123",
+  "role": "admin",
+  "favourite_animals": [],
+  "adoption_requests": [],
+  "createdAt": "2025-04-20T12:59:04.046Z",
+  "updatedAt": "2025-04-20T12:59:04.046Z",
+  "__v": 0
+}
+]
