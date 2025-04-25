@@ -18,7 +18,7 @@ export class AnimalsService {
 
   // TODO
   updateAnimalById(id: string, updatedData: any) {
-    return this.http.put('http://localhost:3000/animals/' + id, updatedData, {withCredentials: true});
+    return this.http.put('http://localhost:5000/app/animals/' + id, updatedData, {withCredentials: true});
   }
 
   // TODO

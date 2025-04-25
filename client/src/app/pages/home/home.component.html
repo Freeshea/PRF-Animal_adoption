@@ -5,7 +5,7 @@
     <div *ngFor="let animal of animals" class="animal-card">
       <img [src]="animal.photos[0]" alt="{{animal.name}}">
       <h3> <span class="underlined">{{animal.name}}</span> is looking for a home!</h3>
-      <p>{{animal.species}} - {{animal.age}} years old</p>
+      <p>{{animal.species}} : {{animal.age}} years old</p>
       <p>Gender: {{animal.gender}}</p>
       <button (click)="goToPetDetails(animal._id)" class="btn-interest"> Interested</button>
     </div>
