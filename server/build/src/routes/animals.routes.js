@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Animal_1 = require("../models/Animal");
 const auth_1 = require("../../middlewares/auth");
+const User_1 = require("../models/User");
 const router = (0, express_1.Router)();
 // GET /animals lists every animal
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -63,7 +64,13 @@ router.put('/:id', auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 
 // DELETE /animals/:id - animal delete
 router.delete('/:id', auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield Animal_1.Animal.findByIdAndDelete(req.params.id);
+        const deletedAnimal = yield Animal_1.Animal.findByIdAndDelete(req.params.id);
+        if (!deletedAnimal) {
+            res.status(404).send('Animal not found');
+            return;
+        }
+        // Törlés a felhasználók kedvenceiből
+        yield User_1.User.updateMany({ favourite_animals: req.params.id }, { $pull: { favourite_animals: req.params.id } });
         res.status(204).send();
     }
     catch (err) {

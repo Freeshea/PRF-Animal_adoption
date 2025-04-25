@@ -113,12 +113,12 @@ exports.default = (passport) => {
     // Check if authenticated
     router.get("/checkAuth", (req, res) => {
         if (req.isAuthenticated()) {
-            console.log("User is logged in.");
+            // console.log("User is logged in.");
             res.status(200).send({ authenticated: true });
             return;
         }
         else {
-            console.log("User is not logged in.");
+            // console.log("User is not logged in.");
             res.status(401).send("User is not logged in");
             return;
         }

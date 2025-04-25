@@ -1,4 +1,9 @@
 <button class="back-button" (click)="goBack()">Back</button>
+<div class="admin-oage-container">
+  <div *ngIf="isAdmin">
+    <button class="admin-btn" (click)="goToAdmin()">Admin</button>
+  </div>
+</div>
 
 <div *ngIf="user" class="profile-container">
 
@@ -8,7 +13,7 @@
   <p><strong>Email:</strong> {{ user.email }}</p>
   <p><strong>Role:</strong> {{ user.role }}</p>
 
-  <!-- TODO -->
+
   <div *ngIf="favouriteAnimals.length >= 0">
     <h3>Your Favourite Pets:</h3>
     <ul>

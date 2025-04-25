@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { Animal } from "../models/Animal";
 import { isAdmin } from "../../middlewares/auth";
+import { User } from "../models/User";
 
 const router = Router();
 
@@ -55,8 +56,19 @@ router.put('/:id', isAdmin, async (req:Request, res: Response)=>{
 // DELETE /animals/:id - animal delete
 router.delete('/:id', isAdmin, async (req:Request, res: Response)=>{
     try{
-        await Animal.findByIdAndDelete(req.params.id);
-        res.status(204).send();
+        const deletedAnimal = await Animal.findByIdAndDelete(req.params.id);
+    if (!deletedAnimal){
+        res.status(404).send('Animal not found');
+        return;
+    } 
+
+    // Törlés a felhasználók kedvenceiből
+    await User.updateMany(
+        { favourite_animals: req.params.id },
+        { $pull: { favourite_animals: req.params.id } }
+    );
+    
+    res.status(204).send();
     }catch(err){
         res.status(500).send(err);
     }

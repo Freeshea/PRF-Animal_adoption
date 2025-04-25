@@ -16,9 +16,16 @@ export class AnimalsService {
     return this.http.get('http://localhost:5000/app/animals/' + id);
   }
 
-  // TODO
   updateAnimalById(id: string, updatedData: any) {
     return this.http.put('http://localhost:5000/app/animals/' + id, updatedData, {withCredentials: true});
+  }
+
+  createAnimal(animal: any){
+    return this.http.post('http://localhost:5000/app/animals', animal, {withCredentials: true});
+  }
+
+  deleteAnimal(id: string){
+    return this.http.delete('http://localhost:5000/app/animals/'+id, {withCredentials:true});
   }
 
   // TODO

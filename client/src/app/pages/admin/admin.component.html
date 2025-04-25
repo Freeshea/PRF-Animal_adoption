@@ -1,1 +1,19 @@
-<p>admin works!</p>
+<h2>Admin: Állatkezelés</h2>
+<!-- gender: male | female -->
+<form (ngSubmit)="createAnimal()">
+  <input [(ngModel)]="newAnimal.name" name="name" placeholder="Name" required>
+  <input [(ngModel)]="newAnimal.gender" name="gender" placeholder="Gender" required>
+  <input [(ngModel)]="newAnimal.species" name="species" placeholder="Species" required>
+  <input [(ngModel)]="newAnimal.age" name="age" placeholder="Age" type="number" required>
+  <input [(ngModel)]="newAnimal.health" name="health" placeholder="Health" required>
+  <input [(ngModel)]="newAnimal.nature" name="nature" placeholder="Nature" required>
+  <input [(ngModel)]="newAnimal.photos" name="photos" placeholder="PhotoURL" required>
+  <button type="submit">Hozzáadás</button>
+</form>
+
+<ul>
+  <li *ngFor="let animal of animals">
+    {{ animal.name }} - {{ animal.species }}
+    <button (click)="deleteAnimal(animal._id)">Törlés</button>
+  </li>
+</ul>

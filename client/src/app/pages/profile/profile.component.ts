@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   user: any;
   showDeletePopup = false;
   favouriteAnimals: any[] = [];
+  isAdmin = false;
 
   constructor(
     private userService: UserService,
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (data) => {
         this.user = data;
+        this.isAdmin = this.user.role === 'admin';
         if (this.user.favourite_animals?.length) {
           this.loadFavouriteAnimals(this.user.favourite_animals);
         }
@@ -54,6 +56,10 @@ export class ProfileComponent implements OnInit {
 
   goToPetDetails(animalId: string) {
     this.router.navigate(['/pet-details/', animalId]);
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin']);
   }
 
   deletePopupShow(): void {
