@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class UserService {
 
   deleteAccount() {
     return this.http.delete('http://localhost:5000/app/users/delete', { withCredentials: true });
+  }
+
+  updateUserProfile(data: any){
+    return this.http.put<User>('http://localhost:5000/app/users/profile', data, {withCredentials:true});
   }
 
 

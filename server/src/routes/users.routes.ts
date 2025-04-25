@@ -11,7 +11,6 @@ export default (passport: PassportStatic): Router => {
       const users = await User.find();
       res.status(200).json(users);
       return;
-
     } catch (err) {
       res.status(500).send(err);
       return;
@@ -37,27 +36,30 @@ export default (passport: PassportStatic): Router => {
   });
 
   // POST Login
-  router.post('/login', (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate('local', (error: string | null, user: typeof User) => {
+  router.post("/login", (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate(
+      "local",
+      (error: string | null, user: typeof User) => {
         if (error) {
-            console.log(error);
-            res.status(500).send(error);
+          console.log(error);
+          res.status(500).send(error);
         } else {
-            if (!user) {
-                res.status(400).send('User not found.');
-            } else {
-                req.login(user, (err: string | null) => {
-                    if (err) {
-                        console.log(err);
-                        res.status(500).send('Internal server error.');
-                    } else {
-                        res.status(200).send(user);
-                    }
-                });
-            }
+          if (!user) {
+            res.status(400).send("User not found.");
+          } else {
+            req.login(user, (err: string | null) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send("Internal server error.");
+              } else {
+                res.status(200).send(user);
+              }
+            });
+          }
         }
-    })(req, res, next);
-});
+      }
+    )(req, res, next);
+  });
 
   // POST Register
   router.post("/register", async (req: Request, res: Response) => {
@@ -119,6 +121,36 @@ export default (passport: PassportStatic): Router => {
     }
   });
 
+  // PUT Update user account
+  router.put("/profile", async (req: Request, res: Response) => {
+    if (!req.isAuthenticated()) {
+      res.status(401).json({ message: "Not authenticated" });
+      return;
+    }
+
+    try {
+      const userId = (req.user as any)._id;
+      const { name } = req.body;
+  
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { name },
+        { new: true }
+      );
+  
+      if (!updatedUser) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+  
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Failed to update profile' });
+    }
+  
+  });
+
   // DELETE user account
   router.delete("/delete", async (req: Request, res: Response) => {
     if (!req.isAuthenticated() || !req.user) {
@@ -150,7 +182,6 @@ export default (passport: PassportStatic): Router => {
   //     return;
   //   }
   // });
-  
 
   // Add to favourites
   router.post("/favourite", async (req: Request, res: Response) => {

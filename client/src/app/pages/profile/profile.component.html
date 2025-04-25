@@ -1,51 +1,74 @@
-<button class="back-button" (click)="goBack()">Back</button>
-<div class="admin-oage-container">
-  <div *ngIf="isAdmin">
-    <button class="admin-btn" (click)="goToAdmin()">Admin</button>
-  </div>
-</div>
+<mat-card class="card-container" *ngIf="user">
+  <mat-card-header>
+    <mat-card-title>
+      <span>My Profile</span>
+      <span>
+        <button mat-icon-button *ngIf="!isEditing" (click)="toggleEdit()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <ng-container *ngIf="isEditing">
+          <button mat-icon-button (click)="saveChanges()" [disabled]="!profileForm.valid">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-icon-button (click)="toggleEdit()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </ng-container>
+      </span>
+    </mat-card-title>
+  </mat-card-header>
 
-<div *ngIf="user" class="profile-container">
+  <mat-card-content>
 
-  <h1>Profile</h1>
+    <form class="profile-form" [formGroup]="profileForm">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" [readonly]="!isEditing" />
+        <mat-error *ngIf="!profileForm.get('name')?.valid && profileForm.get('name')?.touched">Please enter a valid name.</mat-error>
+      </mat-form-field>
 
-  <p><strong>Name:</strong> {{ user.name }}</p>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>Role:</strong> {{ user.role }}</p>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" [readonly]="true" />
+      </mat-form-field>
 
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Role</mat-label>
+        <input matInput formControlName="role" [readonly]="true" />
+      </mat-form-field>
+    </form>
 
-  <div *ngIf="favouriteAnimals.length >= 0">
-    <h3>Your Favourite Pets:</h3>
-    <ul>
-      <li *ngFor="let pet of favouriteAnimals">
-        <a (click)="goToPetDetails(pet._id)" style="cursor: pointer;">
-          {{ pet.name }}, age: {{pet.age}}, gender: {{pet.gender}}
-        </a>
-      </li>
-    </ul>
-  </div>
+    <div *ngIf="favouriteAnimals.length > 0">
+      <h3>Your Favourite Pets:</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let pet of favouriteAnimals" (click)="goToPetDetails(pet._id)" style="cursor: pointer;">
+          <span style="text-decoration: underline;">{{ pet.name }}</span>, age: {{ pet.age }}, gender: {{ pet.gender }}
+        </mat-list-item>
+      </mat-list>
+    </div>
 
+    <div>
+      <h3>Adoption Requests:</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let request of user.adoption_requests">
+          {{ request }}
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card-content>
 
-  <div>
-    <strong>Adoption Requests:</strong>
-    <ul>
-      <li *ngFor="let request of user.adoption_requests" [value]="request._id">
-        {{ request }}
-      </li>
-    </ul>
-  </div>
-  <div class="profile-actions">
-    <button (click)="deletePopupShow()" class="delete-account-btn">DELETE Account</button>
-  </div>
-
-</div>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" *ngIf="isAdmin" (click)="goToAdmin()">Admin Panel</button>
+    <button mat-flat-button class="delete-btn" (click)="deletePopupShow()">Delete Account</button>
+  </mat-card-actions>
+</mat-card>
 
 <div *ngIf="showDeletePopup" class="popup-backdrop">
   <div class="popup-content">
     <h3>Biztos, hogy törlöd véglegesen az accountod?</h3>
     <div class="popup-buttons">
-      <button class="confirm-btn" (click)="deleteAccount()">Igen</button>
-      <button class="cancel-btn" (click)="closeDeletePopup()">Mégse</button>
+      <button mat-raised-button color="warn" (click)="deleteAccount()">Igen</button>
+      <button mat-stroked-button (click)="closeDeletePopup()">Mégse</button>
     </div>
   </div>
 </div>
