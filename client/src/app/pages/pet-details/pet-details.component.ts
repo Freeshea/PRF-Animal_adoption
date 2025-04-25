@@ -128,7 +128,7 @@ export class PetDetailsComponent implements OnInit {
     this.showEditPopup = false;
   }
 
-  // TODO
+
   saveAnimal(): void {
     if (!this.animal._id) return;
 

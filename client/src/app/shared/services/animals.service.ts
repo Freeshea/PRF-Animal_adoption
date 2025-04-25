@@ -34,7 +34,7 @@ export class AnimalsService {
     reason?: string;
     visitDate: string;
   }) {
-    return this.http.post('http://localhost:5000/app/requests/adopt', request, {
+    return this.http.post('http://localhost:5000/app/adoptionRequests/adopt', request, {
       withCredentials: true,
     });
   }

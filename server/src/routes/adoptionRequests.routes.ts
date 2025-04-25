@@ -4,33 +4,64 @@ import { Router, Request, Response } from "express";
 
 const router = Router();
 
-// GET all adoption requests
-router.get("/", async (req: Request, res: Response) => {
+// // GET all adoption requests
+// router.get("/", async (req: Request, res: Response) => {
+//   try {
+//     const requests = await AdoptionRequest.find()
+//       .populate("animal_id")
+//       .populate("user_id");
+//     res.status(200).json(requests);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+
+// // GET adoption request by ID
+// router.get("/:id", async (req: Request, res: Response) => {
+//   try {
+//     const request = await AdoptionRequest.findById(req.params.id)
+//       .populate("animal_id")
+//       .populate("user_id");
+//     if (!request) {
+//       res.status(404).send("Adoption request not found");
+//       return;
+//     }
+//     res.status(200).json(request);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+
+// GET ALL or just user, depends
+router.get('/', async (req: Request, res: Response) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'Not authenticated' });
+    return;
+  }
+
+  const user = req.user as any;
+
   try {
-    const requests = await AdoptionRequest.find()
-      .populate("animal_id")
-      .populate("user_id");
+    let requests;
+    if (user.role === 'admin') {
+      // admin = minden request
+      requests = await AdoptionRequest.find()
+        .populate('animal_id')
+        .populate('user_id');
+    } else {
+      // user = csak a saját request-jei
+      requests = await AdoptionRequest.find({ user_id: user._id })
+        .populate('animal_id')
+        .populate('user_id');
+    }
+
     res.status(200).json(requests);
   } catch (err) {
-    res.status(500).send(err);
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// GET adoption request by ID
-router.get("/:id", async (req: Request, res: Response) => {
-  try {
-    const request = await AdoptionRequest.findById(req.params.id)
-      .populate("animal_id")
-      .populate("user_id");
-    if (!request) {
-      res.status(404).send("Adoption request not found");
-      return;
-    }
-    res.status(200).json(request);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
 
 // POST create a new adoption request
 router.post('/adopt', async (req: Request, res: Response) => {

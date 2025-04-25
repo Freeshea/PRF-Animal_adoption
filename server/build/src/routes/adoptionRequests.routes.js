@@ -13,32 +13,58 @@ const auth_1 = require("../../middlewares/auth");
 const AdoptionRequest_1 = require("./../models/AdoptionRequest");
 const express_1 = require("express");
 const router = (0, express_1.Router)();
-// GET all adoption requests
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// // GET all adoption requests
+// router.get("/", async (req: Request, res: Response) => {
+//   try {
+//     const requests = await AdoptionRequest.find()
+//       .populate("animal_id")
+//       .populate("user_id");
+//     res.status(200).json(requests);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+// // GET adoption request by ID
+// router.get("/:id", async (req: Request, res: Response) => {
+//   try {
+//     const request = await AdoptionRequest.findById(req.params.id)
+//       .populate("animal_id")
+//       .populate("user_id");
+//     if (!request) {
+//       res.status(404).send("Adoption request not found");
+//       return;
+//     }
+//     res.status(200).json(request);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+// GET ALL or just user, depends
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.isAuthenticated()) {
+        res.status(401).json({ message: 'Not authenticated' });
+        return;
+    }
+    const user = req.user;
     try {
-        const requests = yield AdoptionRequest_1.AdoptionRequest.find()
-            .populate("animal_id")
-            .populate("user_id");
+        let requests;
+        if (user.role === 'admin') {
+            // admin = minden request
+            requests = yield AdoptionRequest_1.AdoptionRequest.find()
+                .populate('animal_id')
+                .populate('user_id');
+        }
+        else {
+            // user = csak a saját request-jei
+            requests = yield AdoptionRequest_1.AdoptionRequest.find({ user_id: user._id })
+                .populate('animal_id')
+                .populate('user_id');
+        }
         res.status(200).json(requests);
     }
     catch (err) {
-        res.status(500).send(err);
-    }
-}));
-// GET adoption request by ID
-router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const request = yield AdoptionRequest_1.AdoptionRequest.findById(req.params.id)
-            .populate("animal_id")
-            .populate("user_id");
-        if (!request) {
-            res.status(404).send("Adoption request not found");
-            return;
-        }
-        res.status(200).json(request);
-    }
-    catch (err) {
-        res.status(500).send(err);
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
     }
 }));
 // POST create a new adoption request

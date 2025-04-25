@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'login', loadComponent: () => import ('./pages/login/login.component').then((c) => c.LoginComponent), canActivate: [redirectAuthEdGuard]},
   { path: 'pet-details/:id', loadComponent: () => import('./pages/pet-details/pet-details.component').then(c => c.PetDetailsComponent)},
   { path: 'profile', loadComponent: () => import ('./pages/profile/profile.component').then((c) => c.ProfileComponent), canActivate: [authGuard] },
+  { path: 'adoption-requests', loadComponent: () => import ('./pages/adoption-requests/adoption-requests.component').then((c) => c.AdoptionRequestsComponent), canActivate: [authGuard] },
   { path: 'admin', loadComponent: () => import ('./pages/admin/admin.component').then((c) => c.AdminComponent), canActivate: [authGuard, isAdminGuard] },
   { path: '**', redirectTo: 'home'},
 ];

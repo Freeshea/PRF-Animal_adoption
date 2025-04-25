@@ -1,0 +1,9 @@
+<div *ngIf="requests.length === 0">Nincs örökbefogadási kérelem.</div>
+
+<div *ngFor="let request of requests" class="request-card">
+  <h3>{{ request.animal_id.name }} ({{ request.animal_id.species }})</h3>
+  <p><strong>Felhasználó:</strong> {{ request.user_id.name }}</p>
+  <p><strong>Üzenet:</strong> {{ request.message || 'Nincs megadva' }}</p>
+  <p><strong>Találkozó időpont:</strong> {{ request.meetingDate | date }}</p>
+  <p><strong>Állapot:</strong> {{ request.status }}</p>
+</div>

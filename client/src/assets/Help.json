@@ -1,10 +1,182 @@
-{
-  "name": "Alex",
-  "gender": "male",
-  "species": "Dog",
-  "age": 7,
-  "health": "Full health",
-  "nature": "Shy",
-  "photos": "/Alex.jpg",
-  "isAdopted": false
-}
+[
+  {
+      "_id": "68027907ff998459442849f5",
+      "name": "Alex",
+      "gender": "male",
+      "species": "Dog",
+      "age": 7,
+      "health": "Full health",
+      "nature": "Shy",
+      "photos": [
+          "/Alex.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028be1ec2d7b507c1e1d68",
+      "name": "Freya",
+      "gender": "female",
+      "species": "Dog",
+      "age": 10,
+      "health": "Good health",
+      "nature": "Slow",
+      "photos": [
+          "/Freya.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028c34ec2d7b507c1e1d6a",
+      "name": "Günther",
+      "gender": "male",
+      "species": "Dog",
+      "age": 5,
+      "health": "He has ear infection, need treatment.",
+      "nature": "Happy",
+      "photos": [
+          "/Gunther.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028ca1ec2d7b507c1e1d6c",
+      "name": "Csubakka",
+      "gender": "male",
+      "species": "Dog",
+      "age": 5,
+      "health": "Needs grooming.",
+      "nature": "Disciplined",
+      "photos": [
+          "/Csubakka.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028cd9ec2d7b507c1e1d6e",
+      "name": "Havas",
+      "gender": "female",
+      "species": "Dog",
+      "age": 1,
+      "health": "Perfect.",
+      "nature": "Friendly",
+      "photos": [
+          "/Havas.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028d37ec2d7b507c1e1d70",
+      "name": "Brutusz",
+      "gender": "male",
+      "species": "Dog",
+      "age": 3,
+      "health": "Little slow but good health.",
+      "nature": "Sad",
+      "photos": [
+          "/Brutusz.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028d72ec2d7b507c1e1d72",
+      "name": "Macilány",
+      "gender": "female",
+      "species": "Dog",
+      "age": 4,
+      "health": "Perfect.",
+      "nature": "Outgoing",
+      "photos": [
+          "/Macilány.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028d9dec2d7b507c1e1d74",
+      "name": "Mira",
+      "gender": "female",
+      "species": "Dog",
+      "age": 2,
+      "health": "Good.",
+      "nature": "Chill",
+      "photos": [
+          "/Mira.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68028dd8ec2d7b507c1e1d76",
+      "name": "Bobek",
+      "gender": "male",
+      "species": "Dog",
+      "age": 4,
+      "health": "Perfectly in shape.",
+      "nature": "Happy",
+      "photos": [
+          "/Bobek.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6802916dec2d7b507c1e1d84",
+      "name": "Béla",
+      "gender": "male",
+      "species": "Dog",
+      "age": 7,
+      "health": "Little underfed.",
+      "nature": "Hopeful",
+      "photos": [
+          "/Béla.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "680291afec2d7b507c1e1d87",
+      "name": "Panda",
+      "gender": "female",
+      "species": "Dog",
+      "age": 5,
+      "health": "Recovering from surgery.",
+      "nature": "Strong-willed",
+      "photos": [
+          "/Panda.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "680291e3ec2d7b507c1e1d8a",
+      "name": "Bruno",
+      "gender": "male",
+      "species": "Dog",
+      "age": 7,
+      "health": "Perfect shape.",
+      "nature": "Cute",
+      "photos": [
+          "/Bruno.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  }
+]
