@@ -2,50 +2,59 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 90%;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  gap: 10px;
-}
-
-.login-form input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  outline: none;
-}
-
-.login-form .buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  width: 30vh;
 }
 
 .login-form button {
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: cornflowerblue;
-  width: 100%;
-  color: white;
-  padding: 10px;
+  margin: 5px;
 }
 
-.login-form button:hover {
-  background-color: rgb(50, 74, 120);
+.spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
 }
 
-.login-form button[type="button"] {
-  background-color: rgb(101, 231, 101);
+.registration-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.login-form button[type="button"]:hover {
-  background-color: rgb(57, 129, 57);
+mat-form-field {
+  margin: 5px;
+}
+
+mat-card {
+  background-color: var(--mat-sys-background);
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+mat-card-actions {
+  margin: 0px 5px;
+  padding: 16px 16px 8px 16px;
 }
