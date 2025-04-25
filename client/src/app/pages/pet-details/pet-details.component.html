@@ -1,6 +1,6 @@
 <button class="back-button" (click)="goBack()">Back</button>
 
-<button *ngIf="isAuthenticated" class="update-button" (click)="openEditPopup()">
+<button *ngIf="isAuthenticated&&isAdmin" class="update-button" (click)="openEditPopup()">
   ✏️ Edit
 </button>
 

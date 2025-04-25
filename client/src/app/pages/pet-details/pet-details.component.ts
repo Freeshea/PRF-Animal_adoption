@@ -21,6 +21,7 @@ export class PetDetailsComponent implements OnInit {
   visitDate!: string;
   showEditPopup = false;
   isAuthenticated = false;
+  isAdmin = false;
   isFavourited = false;
 
 
@@ -49,7 +50,9 @@ export class PetDetailsComponent implements OnInit {
         if (isAuthenticated) {
           this.userService.getUserProfile().subscribe({
             next: (user) => {
-              this.isFavourited = (user as any).favourite_animals.includes(id);
+              const userData = user as any;
+              this.isFavourited = userData.favourite_animals.includes(id);
+              this.isAdmin = userData.role === 'admin';
             },
             error: () => {
               console.log('Error fetching user profile');

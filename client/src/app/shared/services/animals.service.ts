@@ -18,10 +18,10 @@ export class AnimalsService {
 
   // TODO
   updateAnimalById(id: string, updatedData: any) {
-    return this.http.put('http://localhost:3000/animals/' + id, updatedData);
+    return this.http.put('http://localhost:3000/animals/' + id, updatedData, {withCredentials: true});
   }
 
-  //
+  // TODO
   submitAdoptionRequest(request: {
     animalId: string;
     reason?: string;
