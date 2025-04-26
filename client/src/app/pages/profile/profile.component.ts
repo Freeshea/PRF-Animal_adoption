@@ -105,6 +105,10 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
+  goToAdopt(){
+    this.router.navigate(['/adoption-requests'])
+  }
+
   deletePopupShow(): void {
     this.showDeletePopup = true;
   }

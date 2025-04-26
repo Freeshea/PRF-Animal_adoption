@@ -49,11 +49,9 @@
 
     <div>
       <h3>Adoption Requests:</h3>
-      <mat-list>
-        <mat-list-item *ngFor="let request of user.adoption_requests">
-          {{ request }}
-        </mat-list-item>
-      </mat-list>
+      <mat-card-actions>
+        <button mat-raised-button (click)="goToAdopt()">Adoption requests</button>
+      </mat-card-actions>
     </div>
   </mat-card-content>
 

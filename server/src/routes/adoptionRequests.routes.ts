@@ -86,30 +86,70 @@ router.post('/adopt', async (req: Request, res: Response) => {
   }
 });
 
+// PUT update an adoption request
+router.put('/:id', async (req: Request, res: Response) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'Not authenticated' });
+    return;
+  }
 
-// PUT update adoption request status (admin)
-router.put("/:id/status", isAdmin, async (req: Request, res: Response) => {
   try {
-    const { status } = req.body;
-    if (!["pending", "accepted", "rejected"].includes(status)) {
-      res.status(400).send("Invalid status value.");
+    const { meetingDate, status } = req.body;
+    const requestId = req.params.id;
+    const user = req.user as any;
+
+    const adoptionRequest = await AdoptionRequest.findById(requestId);
+
+    if (!adoptionRequest) {
+      res.status(404).json({ message: 'Request not found' });
       return;
     }
 
-    const updated = await AdoptionRequest.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
-
-    if (!updated) {
-      res.status(404).send("Adoption request not found");
-      return;
+    if (user.role === 'admin' || (adoptionRequest.user_id.toString() === user._id.toString())) {
+      if (meetingDate) adoptionRequest.meetingDate = meetingDate;
+      if (user.role === 'admin' && status) adoptionRequest.status = status; // csak admin módosíthat státuszt
+      await adoptionRequest.save();
+      res.status(200).json({ message: 'Request updated successfully' });
+    } else {
+      res.status(403).json({ message: 'Not authorized to update this request' });
     }
-    res.status(200).json(updated);
   } catch (err) {
-    res.status(500).send(err);
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+// DELETE an adoption request
+router.delete('/:id', async (req: Request, res: Response) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'Not authenticated' });
+    return;
+  }
+
+  try {
+    const requestId = req.params.id;
+    const user = req.user as any;
+
+    const adoptionRequest = await AdoptionRequest.findById(requestId);
+
+    if (!adoptionRequest) {
+      res.status(404).json({ message: 'Request not found' });
+      return;
+    }
+
+    if (user.role === 'admin' || (adoptionRequest.user_id.toString() === user._id.toString())) {
+      await AdoptionRequest.findByIdAndDelete(requestId);
+      res.status(200).json({ message: 'Request deleted successfully' });
+    } else {
+      res.status(403).json({ message: 'Not authorized to delete this request' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 export default router;
