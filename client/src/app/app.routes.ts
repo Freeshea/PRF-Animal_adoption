@@ -6,6 +6,7 @@ import { isAdminGuard } from './shared/guards/is-admin.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', loadComponent: () => import ('./pages/home/home.component').then((c) => c.HomeComponent)},
+  { path: 'posts', loadComponent: () => import ('./pages/posts/posts.component').then((c) => c.PostsComponent)},
   { path: 'register', loadComponent: () => import ('./pages/register/register.component').then((c) => c.RegisterComponent), canActivate: [redirectAuthEdGuard]},
   { path: 'login', loadComponent: () => import ('./pages/login/login.component').then((c) => c.LoginComponent), canActivate: [redirectAuthEdGuard]},
   { path: 'pet-details/:id', loadComponent: () => import('./pages/pet-details/pet-details.component').then(c => c.PetDetailsComponent)},

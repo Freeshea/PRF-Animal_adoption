@@ -14,9 +14,9 @@ const Post_1 = require("./../models/Post");
 const express_1 = require("express");
 const router = (0, express_1.Router)();
 // GET /posts lists all post
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const posts = yield Post_1.Post.find().populate('animal_id');
+        const posts = yield Post_1.Post.find().populate("animal_id");
         res.status(200).json(posts);
     }
     catch (err) {
@@ -24,9 +24,9 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 }));
 // GET post by ID
-router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const post = yield Post_1.Post.findById(req.params.id).populate('animal_id');
+        const post = yield Post_1.Post.findById(req.params.id).populate("animal_id");
         if (!post) {
             res.status(404).send("Post not found");
             return;
@@ -38,10 +38,16 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 }));
 // POST create new post
-router.post('/', auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, description, animal_id } = req.body;
-        const newPost = new Post_1.Post({ title, description, animal_id });
+        console.log("ANIMALID: ", animal_id, " ANIMALID TYPE", typeof (animal_id));
+        const newPost = new Post_1.Post({
+            title,
+            description,
+            animal_id,
+            release_date: new Date(),
+        });
         const savedPost = yield newPost.save();
         res.status(201).json(savedPost);
     }
@@ -49,10 +55,11 @@ router.post('/', auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0,
         res.status(500).send(err);
     }
 }));
-// PUT /post/:id - post update
-router.put('/:id', auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// PUT /posts/:id - post update
+router.put("/:id", auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const updated = yield Post_1.Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const { title, description, animal_id } = req.body;
+        const updated = yield Post_1.Post.findByIdAndUpdate(req.params.id, { title, description, animal_id }, { new: true });
         res.status(200).json(updated);
     }
     catch (err) {
@@ -60,10 +67,14 @@ router.put('/:id', auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 
     }
 }));
 // DELETE delete post by ID
-router.delete('/:id', auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete("/:id", auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield Post_1.Post.findByIdAndDelete(req.params.id);
-        res.status(204).send();
+        const deletedPost = yield Post_1.Post.findByIdAndDelete(req.params.id);
+        if (!deletedPost) {
+            res.status(404).json({ message: "Post not found" });
+            return;
+        }
+        res.status(200).json(deletedPost);
     }
     catch (err) {
         res.status(500).send(err);

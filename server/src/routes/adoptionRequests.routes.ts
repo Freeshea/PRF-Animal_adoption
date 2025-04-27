@@ -78,6 +78,7 @@ router.post('/adopt', async (req: Request, res: Response) => {
       meetingDate: req.body.visitDate
     });    
 
+    console.log("ANIMALID: ",req.body.animalId," ANIMALID TYPE",typeof(req.body.animalId));
     await newRequest.save();
     res.status(200).json({ message: 'Adoption request submitted' });
   } catch (err) {

@@ -79,6 +79,7 @@ router.post('/adopt', (req, res) => __awaiter(void 0, void 0, void 0, function* 
             message: req.body.reason,
             meetingDate: req.body.visitDate
         });
+        console.log("ANIMALID: ", req.body.animalId, " ANIMALID TYPE", typeof (req.body.animalId));
         yield newRequest.save();
         res.status(200).json({ message: 'Adoption request submitted' });
     }
