@@ -124,13 +124,13 @@
       "name": "Bobek",
       "gender": "male",
       "species": "Dog",
-      "age": 4,
+      "age": 5,
       "health": "Perfectly in shape.",
       "nature": "Happy",
       "photos": [
           "/Bobek.jpg"
       ],
-      "isAdopted": false,
+      "isAdopted": true,
       "post_ids": [],
       "__v": 0
   },
@@ -174,6 +174,366 @@
       "nature": "Cute",
       "photos": [
           "/Bruno.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68121bc011f0b4cf2126bca4",
+      "name": "Gene",
+      "gender": "male",
+      "species": "Cat",
+      "age": 3,
+      "health": "Healthy",
+      "nature": "Independent",
+      "photos": [
+          "/Gene.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68121c3811f0b4cf2126bcb7",
+      "name": "Alistar",
+      "gender": "female",
+      "species": "Cat",
+      "age": 2,
+      "health": "Vaccinated",
+      "nature": "Affectionate",
+      "photos": [
+          "/Alistar.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68121c6c11f0b4cf2126bcc1",
+      "name": "Chaplin",
+      "gender": "male",
+      "species": "Cat",
+      "age": 3,
+      "health": "Neutered",
+      "nature": "Curious",
+      "photos": [
+          "/Chaplin.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68121d0011f0b4cf2126bcc9",
+      "name": "Marlin",
+      "gender": "male",
+      "species": "Cat",
+      "age": 1,
+      "health": "Healthy",
+      "nature": "Calm",
+      "photos": [
+          "/Marlin.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "68121df711f0b4cf2126bcf7",
+      "name": "Misha",
+      "gender": "female",
+      "species": "Cat",
+      "age": 2,
+      "health": "Needs special diet",
+      "nature": "Gentle",
+      "photos": [
+          "/Misha.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681220ec11f0b4cf2126bd2c",
+      "name": "Bungee",
+      "gender": "female",
+      "species": "Rabbit",
+      "age": 1,
+      "health": "Healthy",
+      "nature": "Shy",
+      "photos": [
+          "/Bungee.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812214311f0b4cf2126bd3e",
+      "name": "Fanta",
+      "gender": "female",
+      "species": "Rabbit",
+      "age": 2,
+      "health": "Vaccinated",
+      "nature": "Energetic",
+      "photos": [
+          "/Fanta.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681221e511f0b4cf2126bd48",
+      "name": "Huck",
+      "gender": "male",
+      "species": "Rabbit",
+      "age": 3,
+      "health": "Neutered",
+      "nature": "Calm",
+      "photos": [
+          "/Huck.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681222a811f0b4cf2126bd56",
+      "name": "Walmart",
+      "gender": "male",
+      "species": "Mouse",
+      "age": 1,
+      "health": "Healthy",
+      "nature": "Curious",
+      "photos": [
+          "/Walmart.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681222e211f0b4cf2126bd5e",
+      "name": "Gunther",
+      "gender": "male",
+      "species": "Guinea Pig",
+      "age": 2,
+      "health": "Small injury",
+      "nature": "Timid",
+      "photos": [
+          "/GuntherGP.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812233d11f0b4cf2126bd69",
+      "name": "Mistrel",
+      "gender": "male",
+      "species": "Mouse",
+      "age": 1,
+      "health": "Healthy",
+      "nature": "Sociable",
+      "photos": [
+          "/Mistrel.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812236911f0b4cf2126bd71",
+      "name": "Artichoke",
+      "gender": "male",
+      "species": "Horse",
+      "age": 4,
+      "health": "Vaccinated",
+      "nature": "Curious",
+      "photos": [
+          "/Artichoke.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812238f11f0b4cf2126bd76",
+      "name": "Bordeaux",
+      "gender": "male",
+      "species": "Horse",
+      "age": 3,
+      "health": "Healthy",
+      "nature": "Energetic",
+      "photos": [
+          "/Bordeaux.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681223b911f0b4cf2126bd80",
+      "name": "Animo",
+      "gender": "male",
+      "species": "Horse",
+      "age": 2,
+      "health": "Neutered",
+      "nature": "Shy",
+      "photos": [
+          "/Animo.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812241a11f0b4cf2126bd9b",
+      "name": "Samosa",
+      "gender": "male",
+      "species": "Chicken",
+      "age": 2,
+      "health": "Small injury",
+      "nature": "Alert",
+      "photos": [
+          "/Samosa.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812246911f0b4cf2126bda0",
+      "name": "Rosie",
+      "gender": "female",
+      "species": "Parrot",
+      "age": 1,
+      "health": "Healthy",
+      "nature": "Playful",
+      "photos": [
+          "/Rosie.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681224a111f0b4cf2126bda6",
+      "name": "Lolita",
+      "gender": "male",
+      "species": "Parrot",
+      "age": 2,
+      "health": "Neutered",
+      "nature": "Talkative",
+      "photos": [
+          "/Lolita.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812250311f0b4cf2126bdb2",
+      "name": "Clyde",
+      "gender": "male",
+      "species": "Turtle",
+      "age": 8,
+      "health": "Shell damage",
+      "nature": "Calm",
+      "photos": [
+          "/Clyde.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812255a11f0b4cf2126bdb8",
+      "name": "Trevor",
+      "gender": "male",
+      "species": "Frog",
+      "age": 1,
+      "health": "Healthy",
+      "nature": "Quiet",
+      "photos": [
+          "/Trevor.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681225b911f0b4cf2126bdc4",
+      "name": "Norbert",
+      "gender": "male",
+      "species": "Lizard",
+      "age": 1,
+      "health": "Healthy",
+      "nature": "Still",
+      "photos": [
+          "/Norbert.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "681225e911f0b4cf2126bdc9",
+      "name": "Walter",
+      "gender": "male",
+      "species": "Pig",
+      "age": 2,
+      "health": "Chubby",
+      "nature": "Lazy",
+      "photos": [
+          "/Walter.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812262111f0b4cf2126bdce",
+      "name": "Floyd",
+      "gender": "male",
+      "species": "Pig",
+      "age": 2,
+      "health": "Healthy",
+      "nature": "Energetic",
+      "photos": [
+          "/Floyd.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812266011f0b4cf2126bdd9",
+      "name": "Agnes",
+      "gender": "female",
+      "species": "Goat",
+      "age": 7,
+      "health": "Small injury",
+      "nature": "Curious",
+      "photos": [
+          "/Agnes.jpg"
+      ],
+      "isAdopted": false,
+      "post_ids": [],
+      "__v": 0
+  },
+  {
+      "_id": "6812268311f0b4cf2126bdde",
+      "name": "Wick",
+      "gender": "male",
+      "species": "Goat",
+      "age": 5,
+      "health": "Healthy",
+      "nature": "Energetic",
+      "photos": [
+          "/Wick.jpg"
       ],
       "isAdopted": false,
       "post_ids": [],
