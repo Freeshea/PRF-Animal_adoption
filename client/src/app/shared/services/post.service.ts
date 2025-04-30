@@ -17,7 +17,8 @@ export class PostService {
   createPost(postData: {
     title: string;
     description: string;
-    animal_id: string }): Observable<any> {
+    animal_id: string;
+  }): Observable<any> {
     return this.http.post<any>('http://localhost:5000/app/posts', postData, {
       withCredentials: true,
     });

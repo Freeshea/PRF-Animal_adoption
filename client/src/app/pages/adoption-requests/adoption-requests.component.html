@@ -1,4 +1,4 @@
-<div *ngIf="requests.length === 0">Nincs örökbefogadási kérelem.</div>
+<div *ngIf="requests.length === 0">There aren't any adoption requests.</div>
 
 <div *ngFor="let request of requests" class="request-card">
   <h3>
@@ -7,10 +7,10 @@
     </span> ({{ request.animal_id.species }})
   </h3>
 
-  <p><strong>Felhasználó:</strong> {{ request.user_id.name }}</p>
+  <p><strong>User:</strong> {{ request.user_id.name }}</p>
 
   <mat-form-field appearance="outline">
-    <mat-label>Találkozó időpont</mat-label>
+    <mat-label>Date for meetup</mat-label>
     <input matInput [matDatepicker]="picker" [(ngModel)]="request.meetingDate" [disabled]="!canEdit(request)">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
@@ -18,7 +18,7 @@
 
   <div *ngIf="isAdmin">
     <mat-form-field appearance="outline">
-      <mat-label>Állapot</mat-label>
+      <mat-label>Status:</mat-label>
       <mat-select [(ngModel)]="request.status">
         <mat-option value="pending">Pending</mat-option>
         <mat-option value="accepted">Accepted</mat-option>
@@ -27,11 +27,11 @@
     </mat-form-field>
   </div>
 
-  <p><strong>Üzenet:</strong> {{ request.message || 'Nincs megadva' }}</p>
-  <p><strong>Állapot:</strong> {{ request.status }}</p>
+  <p><strong>Message:</strong> {{ request.message || ' ' }}</p>
+  <p><strong>Status:</strong> {{ request.status }}</p>
 
   <div class="request-actions">
-    <button mat-raised-button color="primary" (click)="updateRequest(request)">Mentés</button>
-    <button mat-raised-button color="warn" (click)="deleteRequest(request._id)">Törlés</button>
+    <button mat-raised-button color="primary" (click)="updateRequest(request)">Save</button>
+    <button mat-raised-button color="warn" (click)="deleteRequest(request._id)">Delete</button>
   </div>
 </div>

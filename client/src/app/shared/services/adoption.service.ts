@@ -14,16 +14,36 @@ export class AdoptionService {
     });
   }
 
+  createAdoptionRequest(request: {
+    animalId: string;
+    reason?: string;
+    visitDate: string;
+  }) {
+    return this.http.post(
+      'http://localhost:5000/app/adoptionRequests/adopt',
+      request,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   updateRequest(id: string, data: any): Observable<any> {
-    return this.http.put<any>(`http://localhost:5000/app/adoptionRequests/`+id, data, {
-      withCredentials: true,
-    });
+    return this.http.put<any>(
+      `http://localhost:5000/app/adoptionRequests/` + id,
+      data,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   deleteRequest(id: string): Observable<any> {
-    return this.http.delete<any>(`http://localhost:5000/app/adoptionRequests/`+id, {
-      withCredentials: true,
-    });
+    return this.http.delete<any>(
+      `http://localhost:5000/app/adoptionRequests/` + id,
+      {
+        withCredentials: true,
+      }
+    );
   }
-
 }

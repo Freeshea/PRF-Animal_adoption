@@ -17,25 +17,23 @@ export class AnimalsService {
   }
 
   updateAnimalById(id: string, updatedData: any) {
-    return this.http.put('http://localhost:5000/app/animals/' + id, updatedData, {withCredentials: true});
+    return this.http.put(
+      'http://localhost:5000/app/animals/' + id,
+      updatedData,
+      { withCredentials: true }
+    );
   }
 
-  createAnimal(animal: any){
-    return this.http.post('http://localhost:5000/app/animals', animal, {withCredentials: true});
-  }
-
-  deleteAnimal(id: string){
-    return this.http.delete('http://localhost:5000/app/animals/'+id, {withCredentials:true});
-  }
-
-  // TODO
-  submitAdoptionRequest(request: {
-    animalId: string;
-    reason?: string;
-    visitDate: string;
-  }) {
-    return this.http.post('http://localhost:5000/app/adoptionRequests/adopt', request, {
+  createAnimal(animal: any) {
+    return this.http.post('http://localhost:5000/app/animals', animal, {
       withCredentials: true,
     });
   }
+
+  deleteAnimal(id: string) {
+    return this.http.delete('http://localhost:5000/app/animals/' + id, {
+      withCredentials: true,
+    });
+  }
+
 }

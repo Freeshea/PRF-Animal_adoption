@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../../shared/services/user.service';
 import { MatIconModule } from '@angular/material/icon';
+import { AdoptionService } from '../../shared/services/adoption.service';
 
 @Component({
   selector: 'app-pet-details',
@@ -33,7 +34,8 @@ export class PetDetailsComponent implements OnInit {
     private router: Router,
     private animalService: AnimalsService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private adoptionService: AdoptionService
   ) {
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD" format
@@ -110,7 +112,7 @@ export class PetDetailsComponent implements OnInit {
       visitDate: this.visitDate,
     };
 
-    this.animalService.submitAdoptionRequest(requestPayload).subscribe({
+    this.adoptionService.createAdoptionRequest(requestPayload).subscribe({
       next: () => {
         console.log('Adoption request sent successfully!');
         alert('Thank you! We will contact you soon.');
