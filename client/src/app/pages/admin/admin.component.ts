@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AnimalsService } from '../../shared/services/animals.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,21 +19,30 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
   animals: any[] = [];
-  newAnimal: any = {
-    name: '',
-    gender: '',
-    species: '',
-    age: 0,
-    health: '',
-    nature: '',
-    photos: [],
-    isAdopted: false,
-  };
+  animalForm!: FormGroup;
 
-  constructor(private animalService: AnimalsService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private animalService: AnimalsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchAnimals();
+
+    this.animalForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      gender: [
+        '',
+        [Validators.required, Validators.pattern(/^(male|female)$/)],
+      ], // enum: male / female
+      species: ['', [Validators.required]],
+      age: [0, [Validators.required, Validators.min(0), Validators.max(50)]],
+      health: ['', [Validators.required]],
+      nature: ['', [Validators.required]],
+      photos: ['', [Validators.required]],
+      isAdopted: [false, Validators.required],
+    });
   }
 
   fetchAnimals() {
@@ -38,9 +53,26 @@ export class AdminComponent implements OnInit {
   }
 
   createAnimal() {
-    this.animalService.createAnimal(this.newAnimal).subscribe({
+    if (this.animalForm.invalid) return;
+
+    const newAnimal = {
+      ...this.animalForm.value,
+      photos: [this.animalForm.value.photos],
+    };
+
+    this.animalService.createAnimal(newAnimal).subscribe({
       next: (_) => {
-        this.newAnimal = {};
+        this.animalForm.reset({
+          name: '',
+          gender: '',
+          species: '',
+          age: 0,
+          health: '',
+          nature: '',
+          photos: '',
+          isAdopted: false,
+        });
+
         this.fetchAnimals();
       },
       error: (err) => console.error(err),
@@ -48,6 +80,9 @@ export class AdminComponent implements OnInit {
   }
 
   deleteAnimal(id: string) {
+    const confirmed = confirm('Are you sure?');
+    if (!confirmed) return;
+
     this.animalService.deleteAnimal(id).subscribe({
       next: (_) => this.fetchAnimals(),
       error: (err) => console.error(err),
@@ -57,8 +92,4 @@ export class AdminComponent implements OnInit {
   goToPetDetails(animalId: string) {
     this.router.navigate(['/pet-details/', animalId]);
   }
-
-  // TODO létrehozásnál a 3. try-on nem működik az automata isadopted:yes
-  // lehet hozzá kéne tenni csak hogy könnyebb legyen egy adopted?: fieldet hozzáadásnál
-  // Illetve formázni ezt az oldalt még.
 }

@@ -112,11 +112,9 @@ export default (passport: PassportStatic): Router => {
   // GET Check if authenticated
   router.get("/checkAuth", (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
-      // console.log("User is logged in.");
       res.status(200).send({ authenticated: true });
       return;
     } else {
-      // console.log("User is not logged in.");
       res.status(401).send("User is not logged in");
       return;
     }

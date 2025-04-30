@@ -44,8 +44,6 @@ router.post("/", isAdmin, async (req: Request, res: Response) => {
 
 // PUT /animals/:id - animal update
 router.put("/:id", isAdmin, async (req: Request, res: Response) => {
-  // console.log("REQ PARAM ID",req.params.id);
-  // console.log("REQ BODY",req.body);
   try {
     const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

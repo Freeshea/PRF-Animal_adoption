@@ -42,23 +42,31 @@
   <div class="edit-popup-content">
     <label>
       <span>Name:</span>
-      <input [(ngModel)]="animal.name" type="text">
+      <input [(ngModel)]="animal.name" type="text" required>
     </label>
     <label>
       <span>Age:</span>
-      <input [(ngModel)]="animal.age" type="number">
+      <input [(ngModel)]="animal.age" type="number" min="0" max="50" required>
     </label>
     <label>
       <span>Species:</span>
-      <input [(ngModel)]="animal.species" type="text">
+      <input [(ngModel)]="animal.species" type="text" required>
     </label>
     <label>
       <span>Health:</span>
-      <input [(ngModel)]="animal.health" type="text">
+      <input [(ngModel)]="animal.health" type="text" required>
     </label>
     <label>
       <span>Nature:</span>
-      <input [(ngModel)]="animal.nature" type="text">
+      <input [(ngModel)]="animal.nature" type="text" required>
+    </label>
+    <label>
+      <span>Gender:</span>
+      <select [(ngModel)]="animal.gender" required>
+        <option value="" disabled selected>Select gender</option>
+        <option value="male">male</option>
+        <option value="female">female</option>
+      </select>
     </label>
     <label>
       <span>Adopted:</span>

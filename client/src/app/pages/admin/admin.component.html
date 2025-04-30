@@ -1,20 +1,36 @@
-<h2>Admin: Állatkezelés</h2>
-<!-- gender: male | female -->
-<form (ngSubmit)="createAnimal()">
-  <input [(ngModel)]="newAnimal.name" name="name" placeholder="Name" required>
-  <input [(ngModel)]="newAnimal.gender" name="gender" placeholder="Gender" required>
-  <input [(ngModel)]="newAnimal.species" name="species" placeholder="Species" required>
-  <input [(ngModel)]="newAnimal.age" name="age" placeholder="Age" type="number" required>
-  <input [(ngModel)]="newAnimal.health" name="health" placeholder="Health" required>
-  <input [(ngModel)]="newAnimal.nature" name="nature" placeholder="Nature" required>
-  <input [(ngModel)]="newAnimal.photos" name="photos" placeholder="PhotoURL" required>
-  <button type="submit">Add</button>
-</form>
+<div class="container">
 
-<ul>
-  <li *ngFor="let animal of animals">
-    {{ animal.name }} - {{ animal.species }}
-    <button (click)="goToPetDetails(animal._id)">Edit</button>
-    <button (click)="deleteAnimal(animal._id)">Delete</button>
-  </li>
-</ul>
+  <h2>Admin: Állatkezelés</h2>
+
+  <form [formGroup]="animalForm" (ngSubmit)="createAnimal()">
+    <input formControlName="name" placeholder="Name">
+    <select formControlName="gender" required>
+      <option value="" disabled selected>Select gender</option>
+      <option value="male">male</option>
+      <option value="female">female</option>
+    </select>
+    <input formControlName="species" placeholder="Species">
+    <input formControlName="age" placeholder="Age" min="0" max="50" type="number">
+    <input formControlName="health" placeholder="Health">
+    <input formControlName="nature" placeholder="Nature">
+    <input formControlName="photos" placeholder="PhotoURL">
+
+    <label>Adopted:</label>
+    <label>
+      <input type="radio" formControlName="isAdopted" [value]="true"> Yes
+    </label>
+    <label>
+      <input type="radio" formControlName="isAdopted" [value]="false"> No
+    </label>
+
+    <button type="submit" [disabled]="animalForm.invalid">Add</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let animal of animals">
+      {{ animal.name }} - {{ animal.species }}
+      <button (click)="goToPetDetails(animal._id)">Edit</button>
+      <button (click)="deleteAnimal(animal._id)">Delete</button>
+    </li>
+  </ul>
+</div>

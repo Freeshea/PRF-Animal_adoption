@@ -135,6 +135,20 @@ export class PetDetailsComponent implements OnInit {
   saveAnimal(): void {
     if (!this.animal._id) return;
 
+    const validGenders = ['male', 'female'];
+    if (
+      !this.animal.name ||
+      this.animal.age < 0 ||
+      this.animal.age > 50 ||
+      !this.animal.species ||
+      !this.animal.health ||
+      !this.animal.nature ||
+      !validGenders.includes(this.animal.gender)
+    ) {
+      alert('Please fill out all required fields correctly!');
+      return;
+    }
+
     this.animalService
       .updateAnimalById(this.animal._id, this.animal)
       .subscribe({

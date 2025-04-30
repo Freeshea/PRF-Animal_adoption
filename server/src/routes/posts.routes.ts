@@ -32,7 +32,6 @@ router.get("/:id", async (req: Request, res: Response) => {
 router.post("/", isAdmin, async (req: Request, res: Response) => {
   try {
     const { title, description, animal_id } = req.body;
-    console.log("ANIMALID: ", animal_id, " ANIMALID TYPE", typeof animal_id);
     const newPost = new Post({
       title,
       description,
