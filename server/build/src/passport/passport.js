@@ -16,7 +16,6 @@ const configurePassport = (passport) => {
             .then((user) => {
             if (user) {
                 user.comparePassword(password, (error, isMatch) => {
-                    console.log("Password is correct: ", isMatch);
                     if (error) {
                         return done("Incorrect username or password.");
                     }

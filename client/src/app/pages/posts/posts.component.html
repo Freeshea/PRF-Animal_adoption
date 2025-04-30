@@ -1,22 +1,22 @@
 <div class="posts-container">
   <mat-card class="new-post-card" *ngIf="isAdmin">
     <mat-card-header>
-      <mat-card-title>Új bejegyzés létrehozása</mat-card-title>
+      <mat-card-title>Create new post</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Cím</mat-label>
+        <mat-label>Title</mat-label>
         <input matInput [(ngModel)]="newPost.title" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Szöveg</mat-label>
-        <textarea matInput rows="4" [(ngModel)]="newPost.description"></textarea>
+        <mat-label>Text</mat-label>
+        <textarea matInput rows="4" maxlength="255" [(ngModel)]="newPost.description" style="max-height: 200px;"></textarea>
       </mat-form-field>
 
-      <!-- Legördülő menü az állatok kiválasztásához -->
+      <!-- Select animal for post -->
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Állat</mat-label>
+        <mat-label>Animal</mat-label>
         <mat-select [(ngModel)]="newPost.animal_id">
           <mat-option *ngFor="let animal of animals" [value]="animal._id">
             {{ animal.name }} ({{ animal.species }})
@@ -28,12 +28,12 @@
     <mat-card-actions>
       <button mat-raised-button color="primary" (click)="createPost()"
         [disabled]="!newPost.title || !newPost.description || !newPost.animal_id">
-        Poszt létrehozása
+        Create post
       </button>
     </mat-card-actions>
   </mat-card>
 
-  <!-- Postok listája -->
+  <!-- List of posts -->
   <div class="post-list">
     <mat-card class="post-card" *ngFor="let post of posts">
       <mat-card-header>
@@ -55,7 +55,8 @@
 
         <!-- Display the animal's image -->
         <div *ngIf="post.animal_id">
-            <img [src]="post.animal_id.photos[0]" (click)="goToPetDetails(post.animal_id._id)" alt="Animal Image" style="max-width: 100px;" />
+          <img [src]="post.animal_id.photos[0]" (click)="goToPetDetails(post.animal_id._id)" alt="Animal Image"
+            style="max-width: 100px;" />
         </div>
       </mat-card-content>
       <mat-card-actions *ngIf="isAdmin">

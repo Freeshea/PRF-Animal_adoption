@@ -19,7 +19,6 @@ export const configurePassport = (passport: PassportStatic): PassportStatic => {
         .then((user) => {
           if (user) {
             user.comparePassword(password, (error, isMatch) => {
-              console.log("Password is correct: ", isMatch);
               if (error) {
                 return done("Incorrect username or password.");
               }

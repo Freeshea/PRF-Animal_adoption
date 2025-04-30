@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import {
   MatCard,
   MatCardContent,
@@ -29,6 +29,7 @@ import { Router } from '@angular/router';
     FormsModule,
     MatCard,
     MatButton,
+    MatButtonModule,
     MatCardTitle,
     MatCardContent,
     MatCardHeader,
@@ -51,7 +52,7 @@ export class PostsComponent implements OnInit {
   newPost: any = {
     title: '',
     description: '',
-    animal_id: '', // Állat ID
+    animal_id: '',
   };
   isAdmin = false;
   editingPost: any = null;
@@ -97,17 +98,18 @@ export class PostsComponent implements OnInit {
     this.postService.createPost(this.newPost).subscribe((post) => {
       this.posts.unshift(post);
       this.newPost = { title: '', description: '', animal_id: '' };
+      window.location.reload();
     });
   }
 
   deletePost(postId: string): void {
     this.postService.deletePost(postId).subscribe(() => {
-      this.posts = this.posts.filter((post) => post._id !== postId); // Törli a posztot a listából
+      this.posts = this.posts.filter((post) => post._id !== postId);
     });
   }
 
   editPost(post: any): void {
-    this.editingPost = { ...post }; // Másolatot készít a posztról
+    this.editingPost = { ...post }; // Copy
   }
 
   cancelEdit(): void {
@@ -124,9 +126,9 @@ export class PostsComponent implements OnInit {
         .subscribe((post) => {
           const index = this.posts.findIndex((p) => p._id === post._id);
           if (index !== -1) {
-            this.posts[index] = post; // Frissíti a posztot
+            this.posts[index] = post;
           }
-          this.editingPost = null; // Szerkesztés mód vége
+          this.editingPost = null;
         });
     }
   }

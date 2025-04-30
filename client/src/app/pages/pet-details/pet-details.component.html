@@ -8,7 +8,7 @@
   <div class="animal-details">
     <!-- Favourite -->
     <ng-container *ngIf="isAuthenticated">
-      <p>Add to favourite:</p>
+      <p>Add to favourite: </p>
       <mat-icon class="fav-button" (click)="toggleFavourite()">
         {{ isFavourited ? "star" : "star_border" }}
       </mat-icon>
@@ -16,6 +16,7 @@
     <h2>{{ animal.name }}</h2>
     <img [src]="animal.photos[0]" alt="{{ animal.name }}">
     <p>Species: {{ animal.species }}</p>
+    <p>Gender: {{ animal.gender }}</p>
     <p>Age: {{ animal.age }}</p>
     <p>Health: {{ animal.health }}</p>
     <p>Nature: {{ animal.nature }}</p>
