@@ -90,7 +90,6 @@ export class AdoptionRequestsComponent implements OnInit {
   }
 
   canEdit(request: any): boolean {
-    // Admin minden kérvényt szerkeszthet, User csak a sajátját
     return this.isAdmin || request.user_id._id === this.currentUser._id;
   }
 
@@ -109,7 +108,6 @@ export class AdoptionRequestsComponent implements OnInit {
     });
   }
 
-  ////////
   saveEdit(request: any) {
     const updateData: any = {
       meetingDate: request.meetingDate,
