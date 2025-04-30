@@ -24,7 +24,8 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" [readonly]="!isEditing" />
-        <mat-error *ngIf="!profileForm.get('name')?.valid && profileForm.get('name')?.touched">Please enter a valid name.</mat-error>
+        <mat-error *ngIf="!profileForm.get('name')?.valid && profileForm.get('name')?.touched">Please enter a valid
+          name.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -38,20 +39,22 @@
       </mat-form-field>
     </form>
 
-    <div *ngIf="favouriteAnimals.length > 0">
+    <div>
       <h3>Your Favourite Pets:</h3>
-      <mat-list>
-        <mat-list-item *ngFor="let pet of favouriteAnimals" (click)="goToPetDetails(pet._id)" style="cursor: pointer;">
-          <span style="text-decoration: underline;">{{ pet.name }}</span>, species: {{ pet.species }}, age: {{ pet.age }}, gender: {{ pet.gender }}
+      <mat-list *ngIf="favouriteAnimals.length > 0">
+        <mat-list-item *ngFor="let animal of favouriteAnimals" (click)="goToPetDetails(animal._id)"
+          style="cursor: pointer;">
+          <span style="text-decoration: underline;">{{ animal.name }}</span>, <img class="animal_img"
+            [src]="animal.photos[0]" alt="{{animal.name}}"> species: {{ animal.species }}, age: {{ animal.age }} years
+          old, gender: {{ animal.gender }}
         </mat-list-item>
       </mat-list>
+      <p *ngIf="favouriteAnimals.length == 0">You do not have a favourite animal</p>
     </div>
 
-    <div>
-      <h3>Adoption Requests:</h3>
-      <mat-card-actions>
-        <button mat-raised-button (click)="goToAdopt()">Adoption requests</button>
-      </mat-card-actions>
+    <div class="adoption-button">
+      <h3>Adoption requests:</h3>
+      <button mat-raised-button (click)="goToAdopt()">Adoptions</button>
     </div>
   </mat-card-content>
 
@@ -63,10 +66,10 @@
 
 <div *ngIf="showDeletePopup" class="popup-backdrop">
   <div class="popup-content">
-    <h3>Biztos, hogy törlöd véglegesen az accountod?</h3>
+    <h3>Are you certain that you would like to delete your account?</h3>
     <div class="popup-buttons">
-      <button mat-raised-button color="warn" (click)="deleteAccount()">Igen</button>
-      <button mat-stroked-button (click)="closeDeletePopup()">Mégse</button>
+      <button mat-raised-button class="delete-acc-button" (click)="deleteAccount()">Yes</button>
+      <button mat-stroked-button (click)="closeDeletePopup()">Cancel</button>
     </div>
   </div>
 </div>

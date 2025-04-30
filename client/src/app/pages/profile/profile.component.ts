@@ -4,11 +4,27 @@ import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { AnimalsService } from '../../shared/services/animals.service';
-import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
+import {
+  MatError,
+  MatFormField,
+  MatInput,
+  MatLabel,
+} from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -32,6 +48,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatLabel,
     MatInput,
     MatError,
+    MatButtonModule,
+    MatButton,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -56,7 +74,7 @@ export class ProfileComponent implements OnInit {
     private location: Location,
     private router: Router,
     private authService: AuthService,
-    private animalService: AnimalsService,
+    private animalService: AnimalsService
   ) {}
 
   ngOnInit(): void {
@@ -85,14 +103,14 @@ export class ProfileComponent implements OnInit {
   }
 
   loadFavouriteAnimals(animalIds: string[]) {
-    animalIds.forEach(id => {
+    animalIds.forEach((id) => {
       this.animalService.getAnimalById(id).subscribe({
         next: (animal) => {
           this.favouriteAnimals.push(animal);
         },
         error: (err) => {
           console.warn('Failed to load animal with id:', id);
-        }
+        },
       });
     });
   }
@@ -105,8 +123,8 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
-  goToAdopt(){
-    this.router.navigate(['/adoption-requests'])
+  goToAdopt() {
+    this.router.navigate(['/adoption-requests']);
   }
 
   deletePopupShow(): void {
@@ -133,7 +151,7 @@ export class ProfileComponent implements OnInit {
   saveChanges() {
     if (this.profileForm.valid) {
       const updated = this.profileForm.getRawValue();
-      this.userService.updateUserProfile(updated).subscribe(res => {
+      this.userService.updateUserProfile(updated).subscribe((res) => {
         this.user = res;
         this.toggleEdit();
       });
@@ -151,16 +169,14 @@ export class ProfileComponent implements OnInit {
           error: (logoutErr) => {
             console.error('Logout failed after deletion', logoutErr);
             this.router.navigate(['/register']);
-          }
+          },
         });
       },
       error: (deleteErr) => {
         console.error('Error deleting account', deleteErr);
-      }
+      },
     });
   }
-
-
 
   goBack() {
     this.location.back();

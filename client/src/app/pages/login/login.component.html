@@ -9,13 +9,15 @@
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" />
-          <mat-error *ngIf="!loginForm.get('email')?.valid && loginForm.get('email')?.touched">Please enter a valid email address.</mat-error>
+          <mat-error *ngIf="!loginForm.get('email')?.valid && loginForm.get('email')?.touched">Please enter a valid
+            email address.</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput type="password" formControlName="password" />
-          <mat-error *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched">Please enter your password.</mat-error>
+          <mat-error *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched">Please enter your
+            password.</mat-error>
         </mat-form-field>
 
         <button mat-flat-button type="submit" [disabled]="!isFormValid">Login</button>
@@ -23,7 +25,7 @@
     </mat-card-content>
 
     <mat-card-actions class="registration-button">
-      <button mat-button routerLink="/registration">New here? Create an account</button>
+      <button mat-button routerLink="/register">New here? Create an account</button>
     </mat-card-actions>
   </mat-card>
 </div>
