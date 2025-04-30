@@ -42,7 +42,7 @@
       <h3>Your Favourite Pets:</h3>
       <mat-list>
         <mat-list-item *ngFor="let pet of favouriteAnimals" (click)="goToPetDetails(pet._id)" style="cursor: pointer;">
-          <span style="text-decoration: underline;">{{ pet.name }}</span>, age: {{ pet.age }}, gender: {{ pet.gender }}
+          <span style="text-decoration: underline;">{{ pet.name }}</span>, species: {{ pet.species }}, age: {{ pet.age }}, gender: {{ pet.gender }}
         </mat-list-item>
       </mat-list>
     </div>

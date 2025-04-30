@@ -5,13 +5,13 @@
 
 h1 {
   font-size: 2rem;
-  color: #2f4f4f; /* Sötétzöld, finomabb árnyalat */
+  color: #2f4f4f;
   margin-bottom: 20px;
 }
 
 .animals-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 4 kártya 1 sorban */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   justify-content: center;
 }
@@ -23,7 +23,7 @@ h1 {
   padding: 1rem;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -56,13 +56,30 @@ h1 {
 }
 
 
-.btn-interest{
+.btn-interest {
   background-color: #21af7d;
   color: white;
   margin-top: auto;
 }
 
-.underlined{
+.underlined {
   text-decoration: underline;
   font-weight: bold;
+}
+
+.animal-card.adopted {
+  background-color: #f0f0f0;
+  opacity: 0.6;
+  position: relative;
+  pointer-events: none;
+
+  .btn-interest {
+    display: none;
+  }
+}
+
+.adopted-label {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-top: 0.5rem;
 }

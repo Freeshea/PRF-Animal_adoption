@@ -20,7 +20,7 @@
     <p>Health: {{ animal.health }}</p>
     <p>Nature: {{ animal.nature }}</p>
     <p>Adopted: {{ animal.isAdopted ? 'Yes' : 'No' }}</p>
-    <button (click)="onAdoptionClick()" class="adopt-btn">Apply for adoption</button>
+    <button *ngIf="!animal.isAdopted" (click)="onAdoptionClick()" class="adopt-btn">Apply for adoption</button>
   </div>
 </div>
 

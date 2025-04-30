@@ -1,12 +1,21 @@
-<!-- home.component.html -->
 <div class="home-container">
   <h1>Adopt a pet or help them get a new home!</h1>
   <div class="animals-grid">
-    <div *ngFor="let animal of animals" class="animal-card">
+    <div *ngFor="let animal of animals" class="animal-card" [ngClass]="{'adopted': animal.isAdopted}">
       <img [src]="animal.photos[0]" alt="{{animal.name}}">
-      <h3> <span class="underlined" (click)="goToPetDetails(animal._id)" style="cursor: pointer;">{{animal.name}}</span> is looking for a home!</h3>
+      <h3>
+        <span class="underlined" (click)="goToPetDetails(animal._id)" style="cursor: pointer;">
+          {{animal.name}}
+        </span>
+        is looking for a home!
+      </h3>
       <p>{{animal.species}} : {{animal.age}} years old</p>
       <p>Gender: {{animal.gender}}</p>
+
+      <!-- Adopted text -->
+      <p *ngIf="animal.isAdopted" class="adopted-label">Adopted</p>
+
+
       <button (click)="goToPetDetails(animal._id)" class="btn-interest"> Interested</button>
     </div>
   </div>
