@@ -14,17 +14,18 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './pet-details.component.scss',
 })
 export class PetDetailsComponent implements OnInit {
+  animal: any;
 
-  animal: any; // pet
-  showPopup = false;
+  // Adoption-request fields
   adoptionReason = '';
   visitDate!: string;
   minDate!: string;
-  showEditPopup = false;
-  isAuthenticated = false;
-  isAdmin = false;
-  isFavourited = false;
+  showPopup = false; // Adoption popup
 
+  showEditPopup = false; // Edit popup
+  isFavourited = false; // Favourite icon boolean
+  isAdmin = false; // Show/hide Edit button
+  isAuthenticated = false; // Adoption request button check auth
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +36,7 @@ export class PetDetailsComponent implements OnInit {
     private userService: UserService
   ) {
     const today = new Date();
-    this.minDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD" formátum
+    this.minDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD" format
   }
 
   ngOnInit(): void {
@@ -46,7 +47,7 @@ export class PetDetailsComponent implements OnInit {
       });
     }
 
-    // Ellenőrizzük, hogy be van-e jelentkezve
+    // Check auth
     this.authService.checkAuth().subscribe({
       next: (isAuthenticated) => {
         this.isAuthenticated = isAuthenticated;
@@ -60,12 +61,12 @@ export class PetDetailsComponent implements OnInit {
             },
             error: () => {
               console.log('Error fetching user profile');
-            }
+            },
           });
         }
       },
       error: (err) => {
-        console.log('Not logged in.');
+        console.log('Not logged in. ', err);
       },
     });
   }
@@ -74,7 +75,7 @@ export class PetDetailsComponent implements OnInit {
     this.authService.checkAuth().subscribe({
       next: (isAuthenticated) => {
         if (!isAuthenticated) {
-          console.log(
+          console.error(
             'Please log in or register to request a meet-up with an animal.'
           );
           this.router.navigate(['/register']);
@@ -90,6 +91,7 @@ export class PetDetailsComponent implements OnInit {
     });
   }
 
+  // Adoption popup
   closePopup(): void {
     this.showPopup = false;
     this.adoptionReason = '';
@@ -109,19 +111,15 @@ export class PetDetailsComponent implements OnInit {
     };
 
     this.animalService.submitAdoptionRequest(requestPayload).subscribe({
-      next: () =>{
-        console.log("Adoption request sent successfully!");
-        alert("Thank you! We will contact you soon.");
+      next: () => {
+        console.log('Adoption request sent successfully!');
+        alert('Thank you! We will contact you soon.');
         this.closePopup();
       },
-      error: (err) =>{
-        console.error("Error sending adoption request", err);
-      }
+      error: (err) => {
+        console.error('Error sending adoption request', err);
+      },
     });
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   openEditPopup(): void {
@@ -131,7 +129,6 @@ export class PetDetailsComponent implements OnInit {
   closeEditPopup(): void {
     this.showEditPopup = false;
   }
-
 
   saveAnimal(): void {
     if (!this.animal._id) return;
@@ -163,5 +160,7 @@ export class PetDetailsComponent implements OnInit {
     }
   }
 
-
+  goBack() {
+    this.location.back();
+  }
 }
