@@ -19,6 +19,7 @@ export class PetDetailsComponent implements OnInit {
   showPopup = false;
   adoptionReason = '';
   visitDate!: string;
+  minDate!: string;
   showEditPopup = false;
   isAuthenticated = false;
   isAdmin = false;
@@ -32,7 +33,10 @@ export class PetDetailsComponent implements OnInit {
     private animalService: AnimalsService,
     private authService: AuthService,
     private userService: UserService
-  ) {}
+  ) {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD" formátum
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

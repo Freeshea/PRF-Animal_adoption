@@ -26,13 +26,13 @@
 
 <div class="popup-backdrop" *ngIf="showPopup">
   <div class="popup-content">
-    <h3>Why do you want to adopt me?</h3>
-    <textarea [(ngModel)]="adoptionReason" maxlength="255" placeholder="(optional)"></textarea>
+    <h3>Why do you want to adopt me? (optional)</h3>
+    <textarea [(ngModel)]="adoptionReason" maxlength="255" placeholder="(max 255 characters.)"></textarea>
 
-    <h4>Which day do you want to meet me?</h4>
-    <input type="date" [(ngModel)]="visitDate">
+    <h4>* Which day do you want to meet me? (required)</h4>
+    <input type="date" [min]="minDate" [(ngModel)]="visitDate">
 
-    <button (click)="submitAdoptionRequest()">Send</button>
+    <button (click)="submitAdoptionRequest()" [disabled]="!visitDate">Send</button>
     <button (click)="closePopup()">Cancel</button>
   </div>
 </div>

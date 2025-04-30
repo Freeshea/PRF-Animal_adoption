@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatOption, MatOptionModule } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { AnimalsService } from '../../shared/services/animals.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -59,6 +60,7 @@ export class PostsComponent implements OnInit {
     private postService: PostService,
     private userService: UserService,
     private animalService: AnimalsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +72,7 @@ export class PostsComponent implements OnInit {
   loadPosts(): void {
     this.postService.getPosts().subscribe({
       next: (data) => {
-        this.posts = data.reverse(); // legújabb előre
+        this.posts = data.reverse();
       },
       error: (err) => console.error(err),
     });
@@ -100,13 +102,12 @@ export class PostsComponent implements OnInit {
 
   deletePost(postId: string): void {
     this.postService.deletePost(postId).subscribe(() => {
-      this.posts = this.posts.filter(post => post._id !== postId);  // Törli a posztot a listából
+      this.posts = this.posts.filter((post) => post._id !== postId); // Törli a posztot a listából
     });
   }
 
-
   editPost(post: any): void {
-    this.editingPost = { ...post };  // Másolatot készít a posztról
+    this.editingPost = { ...post }; // Másolatot készít a posztról
   }
 
   cancelEdit(): void {
@@ -115,16 +116,22 @@ export class PostsComponent implements OnInit {
 
   updatePost(): void {
     if (this.editingPost) {
-      this.postService.updatePost(this.editingPost._id, {
-        title: this.editingPost.title,
-        description: this.editingPost.description
-      }).subscribe((post) => {
-        const index = this.posts.findIndex(p => p._id === post._id);
-        if (index !== -1) {
-          this.posts[index] = post;  // Frissíti a posztot
-        }
-        this.editingPost = null;  // Szerkesztés mód vége
-      });
+      this.postService
+        .updatePost(this.editingPost._id, {
+          title: this.editingPost.title,
+          description: this.editingPost.description,
+        })
+        .subscribe((post) => {
+          const index = this.posts.findIndex((p) => p._id === post._id);
+          if (index !== -1) {
+            this.posts[index] = post; // Frissíti a posztot
+          }
+          this.editingPost = null; // Szerkesztés mód vége
+        });
     }
+  }
+
+  goToPetDetails(animalId: string) {
+    this.router.navigate(['/pet-details/', animalId]);
   }
 }

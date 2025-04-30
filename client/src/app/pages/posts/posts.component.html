@@ -26,7 +26,8 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="createPost()" [disabled]="!newPost.title || !newPost.description || !newPost.animal_id">
+      <button mat-raised-button color="primary" (click)="createPost()"
+        [disabled]="!newPost.title || !newPost.description || !newPost.animal_id">
         Poszt létrehozása
       </button>
     </mat-card-actions>
@@ -52,10 +53,10 @@
           <p>{{ post.description }}</p>
         </ng-template>
 
-             <!-- Display the animal's image -->
-    <div *ngIf="post.animal_id">
-      <img [src]="post.animal_id.photos[0]" alt="Animal Image" style="max-width: 100px;"/>
-    </div>
+        <!-- Display the animal's image -->
+        <div *ngIf="post.animal_id">
+            <img [src]="post.animal_id.photos[0]" (click)="goToPetDetails(post.animal_id._id)" alt="Animal Image" style="max-width: 100px;" />
+        </div>
       </mat-card-content>
       <mat-card-actions *ngIf="isAdmin">
         <ng-container *ngIf="editingPost && editingPost._id === post._id; else showActions">
