@@ -6,21 +6,21 @@
 
 <div *ngIf="animal">
   <div class="animal-details">
-  <!-- Favourite -->
-  <ng-container *ngIf="isAuthenticated">
-    <p>Add to favourite:</p>
-    <mat-icon class="fav-button" (click)="toggleFavourite()">
-      {{ isFavourited ? "star" : "star_border" }}
-    </mat-icon>
-  </ng-container>
-  <h2>{{ animal.name }}</h2>
-  <img [src]="animal.photos[0]" alt="{{ animal.name }}">
-  <p>Species: {{ animal.species }}</p>
-  <p>Age: {{ animal.age }}</p>
-  <p>Health: {{ animal.health }}</p>
-  <p>Nature: {{ animal.nature }}</p>
-  <p>Adopted: {{ animal.isAdopted ? 'Yes' : 'No' }}</p>
-  <button (click)="onAdoptionClick()" class="adopt-btn">Apply for adoption</button>
+    <!-- Favourite -->
+    <ng-container *ngIf="isAuthenticated">
+      <p>Add to favourite:</p>
+      <mat-icon class="fav-button" (click)="toggleFavourite()">
+        {{ isFavourited ? "star" : "star_border" }}
+      </mat-icon>
+    </ng-container>
+    <h2>{{ animal.name }}</h2>
+    <img [src]="animal.photos[0]" alt="{{ animal.name }}">
+    <p>Species: {{ animal.species }}</p>
+    <p>Age: {{ animal.age }}</p>
+    <p>Health: {{ animal.health }}</p>
+    <p>Nature: {{ animal.nature }}</p>
+    <p>Adopted: {{ animal.isAdopted ? 'Yes' : 'No' }}</p>
+    <button (click)="onAdoptionClick()" class="adopt-btn">Apply for adoption</button>
   </div>
 </div>
 
@@ -38,19 +38,45 @@
 </div>
 
 
-<div class="popup-backdrop" *ngIf="showEditPopup">
-  <div class="popup-content">
-    <input [(ngModel)]="animal.name">
-    <input [(ngModel)]="animal.age" type="number">
-    <input [(ngModel)]="animal.species">
-    <input [(ngModel)]="animal.health">
-    <input [(ngModel)]="animal.nature">
-    <!-- isAdopted checkbox -->
+<div class="edit-popup-backdrop" *ngIf="showEditPopup">
+  <div class="edit-popup-content">
     <label>
-      <input type="checkbox" [(ngModel)]="animal.isAdopted"> Adopted
+      <span>Name:</span>
+      <input [(ngModel)]="animal.name" type="text">
+    </label>
+    <label>
+      <span>Age:</span>
+      <input [(ngModel)]="animal.age" type="number">
+    </label>
+    <label>
+      <span>Species:</span>
+      <input [(ngModel)]="animal.species" type="text">
+    </label>
+    <label>
+      <span>Health:</span>
+      <input [(ngModel)]="animal.health" type="text">
+    </label>
+    <label>
+      <span>Nature:</span>
+      <input [(ngModel)]="animal.nature" type="text">
+    </label>
+    <label>
+      <span>Adopted:</span>
+      <div class="radio-group">
+        <label>
+          <input type="radio" [(ngModel)]="animal.isAdopted" [value]="true"> Yes
+        </label>
+        <label>
+          <input type="radio" [(ngModel)]="animal.isAdopted" [value]="false"> No
+        </label>
+      </div>
     </label>
 
-    <button (click)="saveAnimal()">Mentés</button>
-    <button (click)="closeEditPopup()">Mégse</button>
+
+    <div class="button-group">
+      <button (click)="saveAnimal()">Save</button>
+      <button (click)="closeEditPopup()">Cancel</button>
+    </div>
+
   </div>
 </div>
