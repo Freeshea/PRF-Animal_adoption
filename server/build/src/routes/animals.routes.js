@@ -53,8 +53,6 @@ router.post("/", auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0,
 }));
 // PUT /animals/:id - animal update
 router.put("/:id", auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log("REQ PARAM ID",req.params.id);
-    // console.log("REQ BODY",req.body);
     try {
         const updated = yield Animal_1.Animal.findByIdAndUpdate(req.params.id, req.body, {
             new: true,

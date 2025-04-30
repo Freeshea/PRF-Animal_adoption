@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAdmin = isAdmin;
 function isAdmin(req, res, next) {
-    if (req.isAuthenticated() && req.user.role === 'admin') {
+    if (req.isAuthenticated() && req.user.role === "admin") {
         return next();
     }
     else {
