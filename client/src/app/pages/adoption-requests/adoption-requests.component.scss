@@ -1,7 +1,10 @@
 .adoption-requests {
-  max-width: 900px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 
   h2 {
     text-align: center;
@@ -10,30 +13,88 @@
   }
 
   .request-card {
+    width: 100%;
+    max-width: 700px;
     background-color: #f5f5f5;
     padding: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+    &:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    }
+
     h3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-top: 0;
+      margin-bottom: 1rem;
+
+      .clickable {
+        cursor: pointer;
+        color: #1976d2;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      button {
+        margin-left: 1rem;
+      }
     }
 
     p {
       margin: 0.5rem 0;
     }
 
+    mat-form-field {
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+
     &.pending {
-      border-left: 4px solid orange;
+      border-left: 5px solid orange;
     }
 
     &.accepted {
-      border-left: 4px solid green;
+      border-left: 5px solid green;
     }
 
     &.rejected {
-      border-left: 4px solid red;
+      border-left: 5px solid red;
+    }
+  }
+
+  .request-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    justify-content: flex-end;
+
+    button {
+      min-width: 120px;
+    }
+  }
+
+  .request-actions button {
+    background-color: #e0f7fa;
+    color: #004d40;
+
+    &:hover {
+      background-color: #b2ebf2;
+    }
+  }
+
+
+  .full-width {
+    width: 100%;
+
+    .request-textarea{
+      max-height: 100px;
     }
   }
 

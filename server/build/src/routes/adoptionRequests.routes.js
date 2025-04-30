@@ -12,28 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const AdoptionRequest_1 = require("./../models/AdoptionRequest");
 const express_1 = require("express");
 const router = (0, express_1.Router)();
-// // GET all adoption requests
+// // GET all adoption requests for testing
 // router.get("/", async (req: Request, res: Response) => {
 //   try {
 //     const requests = await AdoptionRequest.find()
 //       .populate("animal_id")
 //       .populate("user_id");
 //     res.status(200).json(requests);
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
-// // GET adoption request by ID
-// router.get("/:id", async (req: Request, res: Response) => {
-//   try {
-//     const request = await AdoptionRequest.findById(req.params.id)
-//       .populate("animal_id")
-//       .populate("user_id");
-//     if (!request) {
-//       res.status(404).send("Adoption request not found");
-//       return;
-//     }
-//     res.status(200).json(request);
 //   } catch (err) {
 //     res.status(500).send(err);
 //   }
@@ -48,13 +33,13 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let requests;
         if (user.role === 'admin') {
-            // admin = minden request
+            // admin = every request
             requests = yield AdoptionRequest_1.AdoptionRequest.find()
                 .populate('animal_id')
                 .populate('user_id');
         }
         else {
-            // user = csak a saját request-jei
+            // user = only own requests
             requests = yield AdoptionRequest_1.AdoptionRequest.find({ user_id: user._id })
                 .populate('animal_id')
                 .populate('user_id');
@@ -79,7 +64,6 @@ router.post('/adopt', (req, res) => __awaiter(void 0, void 0, void 0, function* 
             message: req.body.reason,
             meetingDate: req.body.visitDate
         });
-        console.log("ANIMALID: ", req.body.animalId, " ANIMALID TYPE", typeof (req.body.animalId));
         yield newRequest.save();
         res.status(200).json({ message: 'Adoption request submitted' });
     }
@@ -95,7 +79,7 @@ router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         return;
     }
     try {
-        const { meetingDate, status } = req.body;
+        const { meetingDate, status, message } = req.body;
         const requestId = req.params.id;
         const user = req.user;
         const adoptionRequest = yield AdoptionRequest_1.AdoptionRequest.findById(requestId);
@@ -106,8 +90,10 @@ router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (user.role === 'admin' || (adoptionRequest.user_id.toString() === user._id.toString())) {
             if (meetingDate)
                 adoptionRequest.meetingDate = meetingDate;
+            if (message !== undefined)
+                adoptionRequest.message = message;
             if (user.role === 'admin' && status)
-                adoptionRequest.status = status; // csak admin módosíthat státuszt
+                adoptionRequest.status = status; // only admin
             yield adoptionRequest.save();
             res.status(200).json({ message: 'Request updated successfully' });
         }

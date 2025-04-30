@@ -1,37 +1,45 @@
-<div *ngIf="requests.length === 0">There aren't any adoption requests.</div>
+<div class="adoption-requests">
+  <div *ngFor="let request of requests" class="request-card" [ngClass]="request.status">
+    <h3>
+      <span (click)="goToDetails(request.animal_id._id)" class="clickable">
+        {{ request.animal_id.name }}
+      </span> ({{ request.animal_id.species }})
+      <button mat-icon-button *ngIf="canEdit(request) && !request.isEditing" (click)="request.isEditing = true">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </h3>
 
-<div *ngFor="let request of requests" class="request-card">
-  <h3>
-    <span (click)="goToDetails(request.animal_id._id)" class="clickable">
-      {{ request.animal_id.name }}
-    </span> ({{ request.animal_id.species }})
-  </h3>
+    <p><strong>User:</strong> {{ request.user_id.name }}</p>
 
-  <p><strong>User:</strong> {{ request.user_id.name }}</p>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Date for meetup</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="request.meetingDate" [disabled]="!canEdit(request)">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <div *ngIf="isAdmin">
     <mat-form-field appearance="outline">
-      <mat-label>Status:</mat-label>
-      <mat-select [(ngModel)]="request.status">
-        <mat-option value="pending">Pending</mat-option>
-        <mat-option value="accepted">Accepted</mat-option>
-        <mat-option value="rejected">Rejected</mat-option>
-      </mat-select>
+      <mat-label>Date for meetup</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="request.meetingDate" [min]="minDate" [readonly]="true" [disabled]="!request.isEditing">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-  </div>
 
-  <p><strong>Message:</strong> {{ request.message || ' ' }}</p>
-  <p><strong>Status:</strong> {{ request.status }}</p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Message</mat-label>
+      <textarea class="request-textarea" matInput [(ngModel)]="request.message" [disabled]="!request.isEditing"></textarea>
+    </mat-form-field>
 
-  <div class="request-actions">
-    <button mat-raised-button color="primary" (click)="updateRequest(request)">Save</button>
-    <button mat-raised-button color="warn" (click)="deleteRequest(request._id)">Delete</button>
+    <div *ngIf="isAdmin">
+      <mat-form-field appearance="outline">
+        <mat-label>Status:</mat-label>
+        <mat-select [(ngModel)]="request.status">
+          <mat-option value="pending">Pending</mat-option>
+          <mat-option value="accepted">Accepted</mat-option>
+          <mat-option value="rejected">Rejected</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <p><strong>Status:</strong> {{ request.status }}</p>
+
+    <div class="request-actions" *ngIf="request.isEditing">
+      <button mat-raised-button color="primary" (click)="saveEdit(request)">Save</button>
+      <button mat-raised-button color="warn" (click)="cancelEdit(request)">Cancel</button>
+      <button mat-raised-button color="warn" (click)="deleteRequest(request._id)">Delete request</button>
+    </div>
   </div>
 </div>
