@@ -38,7 +38,6 @@ export class AdminComponent implements OnInit {
   }
 
   createAnimal() {
-    console.log(this.newAnimal);
     this.animalService.createAnimal(this.newAnimal).subscribe({
       next: (_) => {
         this.newAnimal = {};

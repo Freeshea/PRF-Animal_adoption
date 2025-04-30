@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_1 = require("../models/User");
+const AdoptionRequest_1 = require("../models/AdoptionRequest");
 const router = (0, express_1.Router)();
 exports.default = (passport) => {
     // GET all users
@@ -94,7 +95,7 @@ exports.default = (passport) => {
             return;
         }
     }));
-    // Logout
+    // POST Logout
     router.post("/logout", (req, res) => {
         if (req.isAuthenticated()) {
             req.logout((error) => {
@@ -110,7 +111,7 @@ exports.default = (passport) => {
             return;
         }
     });
-    // Check if authenticated
+    // GET Check if authenticated
     router.get("/checkAuth", (req, res) => {
         if (req.isAuthenticated()) {
             // console.log("User is logged in.");
@@ -134,14 +135,14 @@ exports.default = (passport) => {
             const { name } = req.body;
             const updatedUser = yield User_1.User.findByIdAndUpdate(userId, { name }, { new: true });
             if (!updatedUser) {
-                res.status(404).json({ message: 'User not found' });
+                res.status(404).json({ message: "User not found" });
                 return;
             }
             res.status(200).json(updatedUser);
         }
         catch (err) {
             console.error(err);
-            res.status(500).json({ message: 'Failed to update profile' });
+            res.status(500).json({ message: "Failed to update profile" });
         }
     }));
     // DELETE user account
@@ -151,11 +152,14 @@ exports.default = (passport) => {
             return;
         }
         try {
-            const user = yield User_1.User.findByIdAndDelete(req.user._id);
+            const userId = req.user._id;
+            const user = yield User_1.User.findByIdAndDelete(userId);
             if (!user) {
                 res.status(404).json({ message: "User not found" });
                 return;
             }
+            // Delete from AdoptionRequest that the user created.
+            yield AdoptionRequest_1.AdoptionRequest.deleteMany({ user_id: userId });
             res.status(200).json({ message: "Account deleted successfully" });
             return;
         }
@@ -164,7 +168,7 @@ exports.default = (passport) => {
             return;
         }
     }));
-    // DELETE ALL USERS (for debugging) -- DELETE http://localhost:5000/app/users/delete-all
+    // DELETE ALL USERS (for debugging) -- FOR TESTING: POSTMAN DELETE http://localhost:5000/app/users/delete-all
     // router.delete('/delete-all', async (req: Request, res: Response) => {
     //   try {
     //     await User.deleteMany({});

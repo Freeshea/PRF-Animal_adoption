@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { PassportStatic } from "passport";
 import { User } from "../models/User";
+import { AdoptionRequest } from "../models/AdoptionRequest";
 
 const router = Router();
 
@@ -92,7 +93,7 @@ export default (passport: PassportStatic): Router => {
     }
   });
 
-  // Logout
+  // POST Logout
   router.post("/logout", (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
       req.logout((error) => {
@@ -108,7 +109,7 @@ export default (passport: PassportStatic): Router => {
     }
   });
 
-  // Check if authenticated
+  // GET Check if authenticated
   router.get("/checkAuth", (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
       // console.log("User is logged in.");
@@ -131,24 +132,23 @@ export default (passport: PassportStatic): Router => {
     try {
       const userId = (req.user as any)._id;
       const { name } = req.body;
-  
+
       const updatedUser = await User.findByIdAndUpdate(
         userId,
         { name },
         { new: true }
       );
-  
+
       if (!updatedUser) {
-        res.status(404).json({ message: 'User not found' });
+        res.status(404).json({ message: "User not found" });
         return;
       }
-  
+
       res.status(200).json(updatedUser);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ message: 'Failed to update profile' });
+      res.status(500).json({ message: "Failed to update profile" });
     }
-  
   });
 
   // DELETE user account
@@ -158,11 +158,17 @@ export default (passport: PassportStatic): Router => {
       return;
     }
     try {
-      const user = await User.findByIdAndDelete((req.user as any)._id);
+      const userId = (req.user as any)._id;
+
+      const user = await User.findByIdAndDelete(userId);
       if (!user) {
         res.status(404).json({ message: "User not found" });
         return;
       }
+
+      // Delete from AdoptionRequest that the user created.
+      await AdoptionRequest.deleteMany({ user_id: userId });
+
       res.status(200).json({ message: "Account deleted successfully" });
       return;
     } catch (err) {
@@ -171,7 +177,7 @@ export default (passport: PassportStatic): Router => {
     }
   });
 
-  // DELETE ALL USERS (for debugging) -- DELETE http://localhost:5000/app/users/delete-all
+  // DELETE ALL USERS (for debugging) -- FOR TESTING: POSTMAN DELETE http://localhost:5000/app/users/delete-all
   // router.delete('/delete-all', async (req: Request, res: Response) => {
   //   try {
   //     await User.deleteMany({});

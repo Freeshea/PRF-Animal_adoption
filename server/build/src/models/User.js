@@ -11,14 +11,22 @@ const UserSchema = new mongoose_1.default.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    role: { type: String, default: 'user' },
-    favourite_animals: { type: [mongoose_1.default.Schema.Types.ObjectId], ref: 'Animal', default: [] },
-    adoption_requests: { type: [mongoose_1.default.Schema.Types.ObjectId], ref: 'Adoption', default: [] },
+    role: { type: String, default: "user" },
+    favourite_animals: {
+        type: [mongoose_1.default.Schema.Types.ObjectId],
+        ref: "Animal",
+        default: [],
+    },
+    adoption_requests: {
+        type: [mongoose_1.default.Schema.Types.ObjectId],
+        ref: "Adoption",
+        default: [],
+    },
 }, { timestamps: true });
 // Bcrypt hook
-UserSchema.pre('save', function (next) {
+UserSchema.pre("save", function (next) {
     const user = this;
-    if (!user.isModified('password')) {
+    if (!user.isModified("password")) {
         return next();
     }
     // hash password
@@ -44,4 +52,4 @@ UserSchema.methods.comparePassword = function (candidatePassword, callback) {
         return callback(null, isMatch);
     });
 };
-exports.User = mongoose_1.default.model('User', UserSchema);
+exports.User = mongoose_1.default.model("User", UserSchema);

@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 router.post("/", auth_1.isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, description, animal_id } = req.body;
-        console.log("ANIMALID: ", animal_id, " ANIMALID TYPE", typeof (animal_id));
+        console.log("ANIMALID: ", animal_id, " ANIMALID TYPE", typeof animal_id);
         const newPost = new Post_1.Post({
             title,
             description,

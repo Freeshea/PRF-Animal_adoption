@@ -14,6 +14,9 @@ const AnimalSchema = new mongoose_1.default.Schema({
     nature: { type: String, required: true },
     photos: { type: [String], default: [], required: false },
     isAdopted: { type: Boolean, required: true },
-    post_ids: { type: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Post' }], required: false }
+    post_ids: {
+        type: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Post" }],
+        required: false,
+    },
 });
-exports.Animal = mongoose_1.default.model('Animal', AnimalSchema);
+exports.Animal = mongoose_1.default.model("Animal", AnimalSchema);

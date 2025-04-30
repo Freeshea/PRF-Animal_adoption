@@ -6,10 +6,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdoptionRequest = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const AdoptionRequestSchema = new mongoose_1.default.Schema({
-    animal_id: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Animal', required: true },
-    user_id: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User', required: true },
-    status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' },
+    animal_id: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "Animal",
+        required: true,
+    },
+    user_id: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    status: {
+        type: String,
+        enum: ["pending", "accepted", "rejected"],
+        default: "pending",
+    },
     message: { type: String },
     meetingDate: { type: Date, required: true },
 }, { timestamps: true });
-exports.AdoptionRequest = mongoose_1.default.model('AdoptionRequest', AdoptionRequestSchema);
+exports.AdoptionRequest = mongoose_1.default.model("AdoptionRequest", AdoptionRequestSchema);
