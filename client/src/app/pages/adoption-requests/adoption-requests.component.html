@@ -1,5 +1,5 @@
 <div class="adoption-requests">
-  <div *ngFor="let request of requests" class="request-card" [ngClass]="request.status">
+  <div *ngFor="let request of requests.slice().reverse()" class="request-card" [ngClass]="request.status">
     <h3>
       <span (click)="goToDetails(request.animal_id._id)" class="clickable">
         {{ request.animal_id.name }}
@@ -21,7 +21,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Message</mat-label>
-      <textarea class="request-textarea" matInput [(ngModel)]="request.message"
+      <textarea class="request-textarea" matInput maxlength="255" placeholder="(max 255 characters.)" [(ngModel)]="request.message"
         [disabled]="!request.isEditing"></textarea>
     </mat-form-field>
 

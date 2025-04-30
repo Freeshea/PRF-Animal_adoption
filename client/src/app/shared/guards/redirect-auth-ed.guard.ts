@@ -8,7 +8,7 @@ export const redirectAuthEdGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   return authService.checkAuth().pipe(
-    map(isAuthenticated => {
+    map((isAuthenticated) => {
       if (isAuthenticated) {
         router.navigateByUrl('/profile');
         return false;

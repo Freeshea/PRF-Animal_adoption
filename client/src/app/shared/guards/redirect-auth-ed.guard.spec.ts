@@ -4,8 +4,10 @@ import { CanActivateFn } from '@angular/router';
 import { redirectAuthEdGuard } from './redirect-auth-ed.guard';
 
 describe('redirectAuthEdGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => redirectAuthEdGuard(...guardParameters));
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() =>
+      redirectAuthEdGuard(...guardParameters)
+    );
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

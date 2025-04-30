@@ -8,14 +8,14 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
 
   return authService.checkAuth().pipe(
-    map(isAuthenticated => {
+    map((isAuthenticated) => {
       if (!isAuthenticated) {
         router.navigateByUrl('/home');
         return false;
       }
       return true;
     }),
-    catchError(error => {
+    catchError((error) => {
       console.error('Auth check failed:', error);
       router.navigateByUrl('/home');
       return of(false);
