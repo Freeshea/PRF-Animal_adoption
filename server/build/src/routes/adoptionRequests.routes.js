@@ -35,16 +35,25 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (user.role === "admin") {
             // admin = every request
             requests = yield AdoptionRequest_1.AdoptionRequest.find()
-                .populate("animal_id")
+                .populate({ path: "animal_id", model: "Animal" })
                 .populate("user_id");
         }
         else {
             // user = only own requests
             requests = yield AdoptionRequest_1.AdoptionRequest.find({ user_id: user._id })
-                .populate("animal_id")
+                .populate({ path: "animal_id", model: "Animal" })
                 .populate("user_id");
         }
-        res.status(200).json(requests);
+        // Ellenőrizzük az adoptált állatokhoz tartozó kérelmeket
+        const updatedRequests = yield Promise.all(requests.map((request) => __awaiter(void 0, void 0, void 0, function* () {
+            const animal = request.animal_id; // Teljes Animal dokumentum
+            if ((animal === null || animal === void 0 ? void 0 : animal.isAdopted) && request.status === "pending") {
+                request.status = "rejected";
+                yield request.save();
+            }
+            return request;
+        })));
+        res.status(200).json(updatedRequests);
     }
     catch (err) {
         console.error(err);

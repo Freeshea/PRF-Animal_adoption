@@ -29,16 +29,29 @@ router.get("/", async (req: Request, res: Response) => {
     if (user.role === "admin") {
       // admin = every request
       requests = await AdoptionRequest.find()
-        .populate("animal_id")
+        .populate({ path: "animal_id", model: "Animal" })
         .populate("user_id");
     } else {
       // user = only own requests
       requests = await AdoptionRequest.find({ user_id: user._id })
-        .populate("animal_id")
+        .populate({ path: "animal_id", model: "Animal" })
         .populate("user_id");
     }
 
-    res.status(200).json(requests);
+    // Ellenőrizzük az adoptált állatokhoz tartozó kérelmeket
+    const updatedRequests = await Promise.all(
+      requests.map(async (request) => {
+        const animal = request.animal_id as any; // Teljes Animal dokumentum
+
+        if (animal?.isAdopted && request.status === "pending") {
+          request.status = "rejected";
+          await request.save();
+        }
+        return request;
+      })
+    );
+
+    res.status(200).json(updatedRequests);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
