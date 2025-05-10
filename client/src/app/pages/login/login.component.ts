@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -22,6 +22,7 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ import {
     MatCardActions,
     MatCardTitle,
     MatCardContent,
+    MatDialogModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -50,7 +52,11 @@ export class LoginComponent {
     password: new FormControl('', Validators.required),
   });
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private dialog: MatDialog
+  ) {}
 
   get isFormValid(): boolean {
     return this.loginForm.valid;
@@ -72,12 +78,41 @@ export class LoginComponent {
         },
         error: (err) => {
           console.error(err);
+          this.showErrorDialog("Login failed. Please check your credentials.");
         },
       });
     }
   }
 
+
+  showErrorDialog(message: string) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: { message },
+      width: '300px'
+    });
+  }
+
   navigate(to: string) {
     this.router.navigateByUrl(to);
   }
+}
+
+
+// ErrorDialogComponent definition
+@Component({
+  selector: 'app-error-dialog',
+  template: `
+    <h2 mat-dialog-title>Error</h2>
+    <mat-dialog-content>
+      <p>{{ data.message }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+  `,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule, CommonModule],
+})
+export class ErrorDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

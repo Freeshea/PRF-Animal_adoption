@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -19,6 +19,11 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { passwordMatchValidator } from '../../shared/validators/password-match.validator';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register',
@@ -37,6 +42,7 @@ import { passwordMatchValidator } from '../../shared/validators/password-match.v
     MatCardActions,
     MatCardTitle,
     MatCardContent,
+    MatDialogModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -61,7 +67,11 @@ export class RegisterComponent {
     passwordMatchValidator('password', 'confirmPassword')
   );
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   get isFormValid(): boolean {
     return this.registrationForm.valid;
@@ -77,11 +87,68 @@ export class RegisterComponent {
       .subscribe({
         next: () => {
           console.log('Successfully registered!');
-          this.router.navigate(['/login']);
+          this.showSuccessDialog("Registration successful! You can now log in.");
         },
         error: (err) => {
           console.error('Error in the registration', err);
+          this.showErrorDialog('Login failed. Please check your credentials.');
         },
       });
   }
+
+  showSuccessDialog(message: string) {
+    const dialogRef = this.dialog.open(SuccessDialogComponent, {
+      data: { message },
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/login']);
+    });
+  }
+
+  showErrorDialog(message: string) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: { message },
+      width: '300px',
+    });
+  }
+}
+
+// SuccessDialogComponent definition
+@Component({
+  selector: 'app-success-dialog',
+  template: `
+    <h2 mat-dialog-title>Success</h2>
+    <mat-dialog-content>
+      <p>{{ data.message }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+  `,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule, CommonModule],
+})
+export class SuccessDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+}
+
+// ErrorDialogComponent definition
+@Component({
+  selector: 'app-error-dialog',
+  template: `
+    <h2 mat-dialog-title>Error</h2>
+    <mat-dialog-content>
+      <p>{{ data.message }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+  `,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule, CommonModule],
+})
+export class ErrorDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
