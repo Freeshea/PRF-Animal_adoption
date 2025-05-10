@@ -14,7 +14,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { PostService } from '../../shared/services/post.service';
 import { UserService } from '../../shared/services/user.service';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatOption, MatOptionModule } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { AnimalsService } from '../../shared/services/animals.service';
@@ -42,6 +42,7 @@ import { Router } from '@angular/router';
     MatOptionModule,
     MatOption,
     MatSelect,
+    MatInput,
   ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss',
@@ -130,6 +131,7 @@ export class PostsComponent implements OnInit {
           }
           this.editingPost = null;
         });
+      window.location.reload();
     }
   }
 

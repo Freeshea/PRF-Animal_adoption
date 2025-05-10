@@ -35,7 +35,7 @@
 
   <!-- List of posts -->
   <div class="post-list">
-    <mat-card class="post-card" *ngFor="let post of posts">
+    <mat-card class="post-card" *ngFor="let post of posts" [class.editing]="editingPost && editingPost._id === post._id">
       <mat-card-header>
         <mat-card-title>
           <ng-container *ngIf="editingPost && editingPost._id === post._id; else showTitle">
@@ -56,7 +56,7 @@
         <!-- Display the animal's image -->
         <div *ngIf="post.animal_id">
           <img [src]="post.animal_id.photos[0]" (click)="goToPetDetails(post.animal_id._id)" alt="Animal Image"
-            style="max-width: 100px;" />
+            style="max-width: 300px;" />
         </div>
       </mat-card-content>
       <mat-card-actions *ngIf="isAdmin">
