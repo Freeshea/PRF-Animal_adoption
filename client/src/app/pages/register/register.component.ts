@@ -52,7 +52,9 @@ export class RegisterComponent {
     {
       name: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ]+([ '-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/),
+        Validators.pattern(
+          /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+        ),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -87,7 +89,9 @@ export class RegisterComponent {
       .subscribe({
         next: () => {
           console.log('Successfully registered!');
-          this.showSuccessDialog("Registration successful! You can now log in.");
+          this.showSuccessDialog(
+            'Registration successful! You can now log in.'
+          );
         },
         error: (err) => {
           console.error('Error in the registration', err);

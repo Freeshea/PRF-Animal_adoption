@@ -31,15 +31,56 @@ export class AdminComponent implements OnInit {
     this.fetchAnimals();
 
     this.animalForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
       gender: [
         '',
         [Validators.required, Validators.pattern(/^(male|female)$/)],
       ], // enum: male / female
-      species: ['', [Validators.required]],
-      age: [0, [Validators.required, Validators.min(0), Validators.max(50)]],
-      health: ['', [Validators.required]],
-      nature: ['', [Validators.required]],
+      species: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
+      age: [
+        0,
+        [
+          Validators.required,
+          Validators.min(0),
+          Validators.max(200),
+          Validators.pattern(/^[0-9]*$/),
+        ],
+      ],
+      health: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
+      nature: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
       photos: ['', [Validators.required]],
       isAdopted: [false, Validators.required],
     });

@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimalsService } from '../../shared/services/animals.service';
 import { CommonModule, Location } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../../shared/services/user.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,12 +16,13 @@ import { AdoptionService } from '../../shared/services/adoption.service';
 
 @Component({
   selector: 'app-pet-details',
-  imports: [CommonModule, FormsModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './pet-details.component.html',
   styleUrl: './pet-details.component.scss',
 })
 export class PetDetailsComponent implements OnInit {
   animal: any;
+  animalForm!: FormGroup;
 
   // Adoption-request fields
   adoptionReason = '';
@@ -29,6 +36,7 @@ export class PetDetailsComponent implements OnInit {
   isAuthenticated = false; // Adoption request button check auth
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
@@ -46,6 +54,7 @@ export class PetDetailsComponent implements OnInit {
     if (id) {
       this.animalService.getAnimalById(id).subscribe((data) => {
         this.animal = data;
+        this.initForm();
       });
     }
 
@@ -70,6 +79,54 @@ export class PetDetailsComponent implements OnInit {
       error: (err) => {
         console.log('Not logged in. ', err);
       },
+    });
+  }
+
+  initForm() {
+    this.animalForm = this.fb.group({
+      name: [
+        this.animal?.name || '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
+      age: [
+        this.animal?.age || 0,
+        [Validators.required, Validators.min(0), Validators.max(200)],
+      ],
+      species: [
+        this.animal?.species || '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
+      health: [
+        this.animal?.health || '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
+      nature: [
+        this.animal?.nature || '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+([, '-][A-Za-zÀ-ŐØ-őø-ÿÁÉÍÓÖŐÚÜŰáéíóöőúüű]+)*\.?$/
+          ),
+        ],
+      ],
+      gender: [this.animal?.gender || '', Validators.required],
+      isAdopted: [this.animal?.isAdopted || false, Validators.required],
     });
   }
 
@@ -126,6 +183,7 @@ export class PetDetailsComponent implements OnInit {
 
   openEditPopup(): void {
     this.showEditPopup = true;
+    this.initForm();
   }
 
   closeEditPopup(): void {
@@ -135,26 +193,15 @@ export class PetDetailsComponent implements OnInit {
   saveAnimal(): void {
     if (!this.animal._id) return;
 
-    const validGenders = ['male', 'female'];
-    if (
-      !this.animal.name ||
-      this.animal.age < 0 ||
-      this.animal.age > 50 ||
-      !this.animal.species ||
-      !this.animal.health ||
-      !this.animal.nature ||
-      !validGenders.includes(this.animal.gender)
-    ) {
-      alert('Please fill out all required fields correctly!');
-      return;
-    }
+    const updatedAnimal = { ...this.animal, ...this.animalForm.value };
 
     this.animalService
-      .updateAnimalById(this.animal._id, this.animal)
+      .updateAnimalById(this.animal._id, updatedAnimal)
       .subscribe({
         next: (updated) => {
           console.log('Successful edit:', updated);
           this.showEditPopup = false;
+          this.animal = updated;
         },
         error: (err) => {
           console.error('Error occured:', err);
