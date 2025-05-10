@@ -1,0 +1,22 @@
+Adatbázis kimentés: mongo dump
+
+docker exec -it animals_container mongodump --db animals_db --out /data/db/dump
+
+docker cp animals_container:/data/db/dump ./animals_mongo_backup
+
+
+Betöltés:
+
+1. animals_mongo_backup mappát át kell másolni (git clone-nal ez megy)
+
+2. mongodb konténer elindítása a dockerfileban található kóddal.
+
+backup mappa bemásolása:
+
+3. terminálba:
+docker cp ./animals_mongo_backup animals_db:/data/db/dump
+
+adatok visszaállítása:
+
+4. terminálba:
+docker exec -it animals_container mongorestore --db animals_db /data/db/dump/animals_db
