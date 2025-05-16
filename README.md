@@ -66,7 +66,7 @@ This is an Animal Adoption Platform built using the MEAN stack (MongoDB, Express
 * **Admin Account:**
 
   * Email: [admin@admin.com]
-  * Password: adminpassword
+  * Password: admin123
 
 ## License
 
