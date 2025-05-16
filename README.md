@@ -19,10 +19,10 @@ This is an Animal Adoption Platform built using the MEAN stack (MongoDB, Express
    git clone https://github.com/Freeshea/PRF-Animal_adoption.git
    ```
 
-2. Start MongoDB using Docker:
+2. Start MongoDB using Docker (sudo if necessary):
 
    ```bash
-   (sudo if necessary) docker run -d --name animals_container -p 6000:27017 -v animals_mongo_data:/data/db mongo
+   docker run -d --name animals_container -p 6000:27017 -v animals_mongo_data:/data/db mongo
    ```
 
 3. Navigate to the `server` and `client` directories and install dependencies:
