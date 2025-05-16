@@ -16,30 +16,31 @@ This is an Animal Adoption Platform built using the MEAN stack (MongoDB, Express
 1. Clone the repository:
 
    ```bash
-   git clone <GITHUB_REPO_LINK>
+   git clone https://github.com/Freeshea/PRF-Animal_adoption.git
    ```
 
 2. Start MongoDB using Docker:
 
    ```bash
-   docker run --name mongodb -d -p 27017:27017 mongo
+   (sudo if necessary) docker run -d --name animals_container -p 6000:27017 -v animals_mongo_data:/data/db mongo
    ```
 
 3. Navigate to the `server` and `client` directories and install dependencies:
 
    ```bash
-   cd server
+   cd ./server
    npm install
 
-   cd ../client
+   cd ./client
    npm install
    ```
 
-4. Import the initial data into MongoDB (from within the `server` directory):
+4. Import the initial data into MongoDB (the backup folder is `named animals_mongo_backup` which is in the `server` directory):
 
    ```bash
-   # Replace this with the exact command for importing your data
-   npm run seed
+   docker cp ./animals_mongo_backup animals_container:/data/db/dump
+   
+   docker exec -it animals_container mongorestore --db animals_db /data/db/dump/animals_db
    ```
 
 5. Start the server and client applications:
@@ -56,12 +57,15 @@ This is an Animal Adoption Platform built using the MEAN stack (MongoDB, Express
 
 * **User Account:**
 
-  * Email: [testuser@example.com](mailto:testuser@example.com)
-  * Password: testpassword
+  * Email: [teszt@t.com]
+  * Password: teszt123
+ 
+  * Email: [t@t.com]
+  * Password: teszt123
 
 * **Admin Account:**
 
-  * Email: [adminuser@example.com](mailto:adminuser@example.com)
+  * Email: [admin@admin.com]
   * Password: adminpassword
 
 ## License
