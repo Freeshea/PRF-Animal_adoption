@@ -28,7 +28,7 @@
 <div class="popup-backdrop" *ngIf="showPopup">
   <div class="popup-content">
     <h3>Why do you want to adopt me? (optional)</h3>
-    <textarea [(ngModel)]="adoptionReason" maxlength="255" placeholder="(max 255 characters.)"></textarea>
+    <textarea class="pet-details_textarea" [(ngModel)]="adoptionReason" maxlength="255" placeholder="(max 255 characters.)"></textarea>
 
     <h4>* Which day do you want to meet me? (required)</h4>
     <input type="date" [min]="minDate" [(ngModel)]="visitDate">
