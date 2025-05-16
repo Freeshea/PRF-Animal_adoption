@@ -35,7 +35,7 @@ This is an Animal Adoption Platform built using the MEAN stack (MongoDB, Express
    npm install
    ```
 
-4. Import the initial data into MongoDB (the backup folder is `named animals_mongo_backup` which is in the `server` directory):
+4. Import the initial data into MongoDB (the backup folder is `named animals_mongo_backup/animals_db` which is in the `server` directory):
 
    ```bash
    docker cp ./animals_mongo_backup animals_container:/data/db/dump
