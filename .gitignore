@@ -44,3 +44,5 @@ client/.angular/cache
 # System files
 .DS_Store
 Thumbs.db
+
+DevOps-kieg/jenkins/jenkins_home
