@@ -35,5 +35,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+                    def image = docker.build("freeshea/animal-adoption:${env.BUILD_NUMBER}", "./client")
+                    image.push()
+                    image.push("latest")
+                    }
+                }
+            }
+        }
+
     }
 }
