@@ -1,0 +1,11 @@
+Minikube + Jenkins (Dockerben) + Terraform + Ansible + Prometheus/Grafana környezetet építünk
+
+docker compose up -d
+docker exec install ( a jenkins dockerben docker install - docker desktop)
+localhost:8080 : jenkins
+admin belépés + jelszó
+install plugins
+nodejs hozzáadása (NodeJS20)
+create job: git link + Jenkinsfile
+credentials megadása dockerhub-hoz
+job futtatás 40 min kb
