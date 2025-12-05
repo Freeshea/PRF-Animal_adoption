@@ -2,14 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('Deploy') {
+        stage('Checkout') {
             steps {
-                script {
-                    sh """
-                        docker compose -f /path/to/prf-animal_adoption/docker-compose.yaml pull
-                        docker compose -f /path/to/prf-animal_adoption/docker-compose.yaml up -d
-                    """
-                }
+                checkout scm
+            }
+        }
+
+        stage('Pull latest images') {
+            steps {
+                sh """
+                    docker pull freeahea/animal_adoption_client:latest
+                    docker pull freeahea/animal_adoption_server:latest
+                """
+            }
+        }
+
+        stage('Restart containers') {
+            steps {
+                sh """
+                    docker compose -f docker-compose.prod.yaml down
+                    docker compose -f docker-compose.prod.yaml up -d
+                """
             }
         }
     }
