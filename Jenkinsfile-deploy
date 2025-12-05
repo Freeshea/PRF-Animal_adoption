@@ -16,14 +16,5 @@ pipeline {
                 """
             }
         }
-
-        stage('Restart containers') {
-            steps {
-                sh """
-                    docker compose -f docker-compose.prod.yaml down
-                    docker compose -f docker-compose.prod.yaml up -d
-                """
-            }
-        }
     }
 }
