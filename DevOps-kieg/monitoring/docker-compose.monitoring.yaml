@@ -12,3 +12,8 @@ services:
     image: grafana/grafana
     ports:
       - "3000:3000"
+
+networks:
+  default:
+    external: true
+    name: prf-animal_adoption_default

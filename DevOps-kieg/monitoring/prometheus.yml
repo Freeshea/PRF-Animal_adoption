@@ -6,6 +6,6 @@ scrape_configs:
     static_configs:
       - targets: ['client:80']
 
-  - job_name: 'server'
+  - job_name: 'server-metrics'
     static_configs:
       - targets: ['server:5000']

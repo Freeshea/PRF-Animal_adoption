@@ -10,6 +10,8 @@ import usersRoutes from "./routes/users.routes";
 import animalsRoutes from "./routes/animals.routes";
 import postsRoutes from "./routes/posts.routes";
 import adoptionRequestsRoutes from "./routes/adoptionRequests.routes";
+import client from "prom-client";
+
 
 const app = express();
 const PORT = 5000;
@@ -72,6 +74,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 configurePassport(passport);
+
+// Prometheus
+const collectDefaultMetrics = client.collectDefaultMetrics;
+collectDefaultMetrics();
+
+app.get("/metrics", async (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
+});
+
 
 // usersRoutes
 app.use("/app/users", usersRoutes(passport));
