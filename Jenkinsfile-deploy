@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy') {
+            steps {
+                script {
+                    sh """
+                        docker compose -f /path/to/prf-animal_adoption/docker-compose.yaml pull
+                        docker compose -f /path/to/prf-animal_adoption/docker-compose.yaml up -d
+                    """
+                }
+            }
+        }
+    }
+}
