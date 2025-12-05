@@ -13,7 +13,9 @@ import adoptionRequestsRoutes from "./routes/adoptionRequests.routes";
 
 const app = express();
 const PORT = 5000;
-const dbUrl = "mongodb://localhost:6000/animals_db";
+//const dbUrl = "mongodb://localhost:6000/animals_db";
+const dbUrl = "mongodb://mongo:27017/animals_db";
+
 
 // POST/PUT JSON
 app.use(express.json());

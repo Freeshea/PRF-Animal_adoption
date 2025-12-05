@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - "6000:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-seed:
+    image: mongo
+    depends_on:
+      - mongo
+    volumes:
+      - ./server/animals_mongo_backup:/backup
+    entrypoint: ["sh", "-c", "sleep 5 && mongorestore --host mongo --db animals_db /backup/animals_db"]
+    # csak egyszer fusson → ne induljon újra
+    restart: "no"
+
+  server:
+    build: ./server
+    container_name: server
+    depends_on:
+      - mongo
+      - mongo-seed
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/animals_db
+    ports:
+      - "5000:5000"
+
+volumes:
+  mongo_data:

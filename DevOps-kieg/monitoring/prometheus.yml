@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'cadvisor'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  - job_name: 'nginx'
+    metrics_path: '/metrics'   # ha nginx-exporter-t használsz
+    static_configs:
+      - targets: []
+
+  # opcionális: a node/server app-ot lehet instrumentálni és scrapingre konfigurálni
