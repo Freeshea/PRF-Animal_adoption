@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'NodeJS20'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                dir('server'){
+                    sh 'npm ci'
+                }
+            }
+        }
+
+        stage('Build TypeScript') {
+            steps {
+                dir('server') {
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+                        def image = docker.build("freeahea/animal_adoption_server:${env.BUILD_NUMBER}", "./server")
+                        image.push()
+                        image.push("latest")
+                    }
+                }
+            }
+        }
+    }
+}
