@@ -113,7 +113,8 @@ const httpErrorCounter = new client.Counter({
 
 // REQUEST METRICS MIDDLEWARE
 app.use((req, res, next) => {
-  const route = req.path; // simple route detection
+  const route = (req as any).route?.path || req.originalUrl.split("?")[0] || "unknown";
+
   const method = req.method;
 
   const end = httpRequestDuration.startTimer();
