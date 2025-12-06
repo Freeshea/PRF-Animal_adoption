@@ -1,0 +1,74 @@
+{
+  "id": null,
+  "title": "NGINX Exporter Dashboard",
+  "tags": ["nginx", "prometheus"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Active Connections",
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "expr": "nginx_connections_active",
+          "interval": "",
+          "format": "time_series"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "HTTP Requests Total",
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "expr": "nginx_http_requests_total",
+          "interval": "",
+          "format": "time_series"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Connection States",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 },
+      "targets": [
+        { "expr": "nginx_connections_reading", "legendFormat": "Reading" },
+        { "expr": "nginx_connections_writing", "legendFormat": "Writing" },
+        { "expr": "nginx_connections_waiting", "legendFormat": "Waiting" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP Requests Rate (RPS)",
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "rate(nginx_http_requests_total[1m])",
+          "legendFormat": "RPS"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Accepted / Handled Connections",
+      "gridPos": { "x": 0, "y": 16, "w": 12, "h": 6 },
+      "targets": [
+        { "expr": "nginx_connections_accepted", "legendFormat": "Accepted" },
+        { "expr": "nginx_connections_handled", "legendFormat": "Handled" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "NGINX Exporter Status",
+      "gridPos": { "x": 0, "y": 22, "w": 6, "h": 4 },
+      "targets": [
+        { "expr": "nginx_up", "legendFormat": "Up" }
+      ]
+    }
+  ],
+  "templating": { "list": [] }
+}

@@ -8,6 +8,6 @@ scrape_configs:
       - targets: ['server:5000']
 
   - job_name: 'nginx'
-    metrics_path: /nginx_status
     static_configs:
-      - targets: ['client:80']
+      - targets: ['nginx-exporter:9113']
+

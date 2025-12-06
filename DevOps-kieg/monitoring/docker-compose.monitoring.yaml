@@ -13,6 +13,16 @@ services:
     ports:
       - "3000:3000"
 
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:0.11.0
+    command:
+      - "-nginx.scrape-uri=http://client/nginx_status"
+    ports:
+      - "9113:9113"
+    networks:
+      - default
+
+
 networks:
   default:
     external: true
