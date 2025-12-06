@@ -26,7 +26,7 @@
     {
       "type": "stat",
       "title": "Uptime (seconds)",
-      "datasource": "Prometheus",
+      "datasource": "prometheus",
       "targets": [
         {
           "expr": "time() - process_start_time_seconds",
@@ -37,11 +37,11 @@
     },
     {
       "type": "gauge",
-      "title": "Memory Usage (Heap Used)",
-      "datasource": "Prometheus",
+      "title": "Memory Usage (Heap Used - MB)",
+      "datasource": "prometheus",
       "targets": [
         {
-          "expr": "process_heap_used_bytes",
+          "expr": "nodejs_heap_size_used_bytes / (1024*1024)",
           "refId": "A"
         }
       ],
@@ -50,7 +50,7 @@
     {
       "type": "graph",
       "title": "CPU Usage (seconds)",
-      "datasource": "Prometheus",
+      "datasource": "prometheus",
       "targets": [
         {
           "expr": "process_cpu_user_seconds_total",
@@ -61,11 +61,11 @@
     },
     {
       "type": "graph",
-      "title": "Event Loop Lag",
-      "datasource": "Prometheus",
+      "title": "Event Loop Lag (ms)",
+      "datasource": "prometheus",
       "targets": [
         {
-          "expr": "nodejs_eventloop_lag_seconds",
+          "expr": "nodejs_eventloop_lag_seconds * 1000",
           "refId": "A"
         }
       ],
@@ -73,8 +73,8 @@
     },
     {
       "type": "graph",
-      "title": "GC Duration (sum)",
-      "datasource": "Prometheus",
+      "title": "Garbage Collector Duration (seconds - sum)",
+      "datasource": "prometheus",
       "targets": [
         {
           "expr": "nodejs_gc_duration_seconds_sum",
@@ -86,7 +86,7 @@
     {
       "type": "stat",
       "title": "Open File Descriptors",
-      "datasource": "Prometheus",
+      "datasource": "prometheus",
       "targets": [
         {
           "expr": "process_open_fds",
@@ -97,11 +97,11 @@
     },
     {
       "type": "graph",
-      "title": "RSS Memory",
-      "datasource": "Prometheus",
+      "title": "RSS Memory (MB)",
+      "datasource": "prometheus",
       "targets": [
         {
-          "expr": "process_resident_memory_bytes",
+          "expr": "process_resident_memory_bytes / (1024*1024)",
           "refId": "A"
         }
       ],
@@ -109,11 +109,11 @@
     },
     {
       "type": "graph",
-      "title": "Total Heap Size",
-      "datasource": "Prometheus",
+      "title": "Total Heap Size (MB)",
+      "datasource": "prometheus",
       "targets": [
         {
-          "expr": "process_heap_total_bytes",
+          "expr": "nodejs_heap_size_total_bytes / (1024*1024)",
           "refId": "A"
         }
       ],
@@ -122,7 +122,7 @@
     {
       "type": "stat",
       "title": "Active Handles",
-      "datasource": "Prometheus",
+      "datasource": "prometheus",
       "targets": [
         {
           "expr": "nodejs_active_handles_total",
@@ -134,7 +134,7 @@
     {
       "type": "stat",
       "title": "Active Requests",
-      "datasource": "Prometheus",
+      "datasource": "prometheus",
       "targets": [
         {
           "expr": "nodejs_active_requests_total",
