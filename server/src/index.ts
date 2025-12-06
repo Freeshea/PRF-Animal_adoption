@@ -75,73 +75,14 @@ app.use(passport.session());
 
 configurePassport(passport);
 
-// Prometheus Metrics
-// const collectDefaultMetrics = client.collectDefaultMetrics;
-// collectDefaultMetrics();
+// Prometheus
+const collectDefaultMetrics = client.collectDefaultMetrics;
+collectDefaultMetrics();
 
-// app.get("/metrics", async (req, res) => {
-//   res.set('Content-Type', client.register.contentType);
-//   res.end(await client.register.metrics());
-// });
-
-const register = new client.Registry();
-
-// default Node.js metrics (CPU, mem, heap, event loop, GC, uptime…)
-client.collectDefaultMetrics({ register });
-
-// Request COUNTER
-const httpRequestCounter = new client.Counter({
-  name: "http_requests_total",
-  help: "Total number of requests handled",
-  labelNames: ["method", "route", "status"],
-});
-
-// Request DURATION histogram
-const httpRequestDuration = new client.Histogram({
-  name: "http_request_duration_seconds",
-  help: "Duration of HTTP requests in seconds",
-  labelNames: ["method", "route", "status"],
-  buckets: [0.01, 0.05, 0.1, 0.3, 0.5, 1], // suitable for REST APIs
-});
-
-// Error COUNTER
-const httpErrorCounter = new client.Counter({
-  name: "http_errors_total",
-  help: "Number of error responses",
-  labelNames: ["method", "route", "status"],
-});
-
-// REQUEST METRICS MIDDLEWARE
-app.use((req, res, next) => {
-  const route = (req as any).route?.path || req.originalUrl.split("?")[0] || "unknown";
-
-  const method = req.method;
-
-  const end = httpRequestDuration.startTimer();
-
-  res.on("finish", () => {
-    const status = res.statusCode.toString();
-
-    // Count every request
-    httpRequestCounter.labels(method, route, status).inc();
-
-    // Count errors
-    if (res.statusCode >= 400) {
-      httpErrorCounter.labels(method, route, status).inc();
-    }
-
-    end({ method, route, status });
-  });
-
-  next();
-});
-
-// METRICS ENDPOINT
 app.get("/metrics", async (req, res) => {
-  res.set("Content-Type", register.contentType);
-  res.end(await register.metrics());
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
 });
-
 
 
 // usersRoutes

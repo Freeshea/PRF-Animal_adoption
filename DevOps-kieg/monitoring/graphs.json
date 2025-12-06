@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -15,164 +18,140 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1654893523221,
+  "id": null,
+  "iteration": 1700000000000,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "thresholds" },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "orange", "value": 70 },
-              { "color": "red", "value": 90 }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
-      "id": 1,
-      "options": {
-        "colorMode": "continuous-RdYlGr",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "value"
-      },
-      "pluginVersion": "8.5.2",
+      "type": "stat",
+      "title": "Uptime (seconds)",
+      "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "rate(process_cpu_user_seconds_total[1m]) * 100",
-          "interval": "",
-          "legendFormat": "CPU Usage %",
+          "expr": "time() - process_start_time_seconds",
           "refId": "A"
         }
       ],
-      "title": "CPU Usage (%)",
-      "type": "stat"
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 }
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "thresholds" },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 500000000 },
-              { "color": "red", "value": 1000000000 }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
-      "id": 2,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
+      "type": "gauge",
+      "title": "Memory Usage (Heap Used)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "process_heap_used_bytes",
+          "refId": "A"
         }
-      },
+      ],
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 }
+    },
+    {
+      "type": "graph",
+      "title": "CPU Usage (seconds)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "process_cpu_user_seconds_total",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 }
+    },
+    {
+      "type": "graph",
+      "title": "Event Loop Lag",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "nodejs_eventloop_lag_seconds",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 6 }
+    },
+    {
+      "type": "graph",
+      "title": "GC Duration (sum)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "nodejs_gc_duration_seconds_sum",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 16, "w": 12, "h": 6 }
+    },
+    {
+      "type": "stat",
+      "title": "Open File Descriptors",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "process_open_fds",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 }
+    },
+    {
+      "type": "graph",
+      "title": "RSS Memory",
+      "datasource": "Prometheus",
       "targets": [
         {
           "expr": "process_resident_memory_bytes",
-          "interval": "",
-          "legendFormat": "RSS Memory",
           "refId": "A"
         }
       ],
-      "title": "Memory Usage (RSS)",
-      "type": "stat"
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 6 }
     },
     {
-      "datasource": null,
-      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 8 },
-      "id": 3,
+      "type": "graph",
+      "title": "Total Heap Size",
+      "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "sum by (method, route) (rate(http_request_duration_seconds_count[1m]))",
-          "legendFormat": "{{method}} {{route}}",
+          "expr": "process_heap_total_bytes",
           "refId": "A"
         }
       ],
-      "title": "Requests Per Second (per endpoint)",
-      "type": "graph"
+      "gridPos": { "x": 12, "y": 10, "w": 12, "h": 6 }
     },
     {
-      "datasource": null,
-      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 17 },
-      "id": 4,
+      "type": "stat",
+      "title": "Active Handles",
+      "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m])",
-          "legendFormat": "Average",
+          "expr": "nodejs_active_handles_total",
           "refId": "A"
-        },
-        {
-          "expr": "histogram_quantile(0.90, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
-          "legendFormat": "P90",
-          "refId": "B"
-        },
-        {
-          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
-          "legendFormat": "P99",
-          "refId": "C"
         }
       ],
-      "title": "Request Duration (avg, p90, p99)",
-      "type": "graph"
+      "gridPos": { "x": 12, "y": 16, "w": 6, "h": 4 }
     },
     {
-      "datasource": null,
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 26 },
-      "id": 5,
+      "type": "stat",
+      "title": "Active Requests",
+      "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "increase(http_errors_total[5m])",
-          "legendFormat": "Errors",
+          "expr": "nodejs_active_requests_total",
           "refId": "A"
         }
       ],
-      "title": "API Errors (last 5m)",
-      "type": "stat"
-    },
-    {
-      "datasource": null,
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 26 },
-      "id": 6,
-      "targets": [
-        {
-          "expr": "process_start_time_seconds",
-          "legendFormat": "Start Time",
-          "refId": "A"
-        }
-      ],
-      "title": "Process Start Time",
-      "type": "stat"
+      "gridPos": { "x": 18, "y": 16, "w": 6, "h": 4 }
     }
   ],
-  "schemaVersion": 34,
+  "refresh": "10s",
+  "schemaVersion": 37,
   "style": "dark",
-  "tags": ["nodejs", "express", "prometheus"],
+  "tags": [ "nodejs", "prometheus", "server" ],
   "templating": { "list": [] },
-  "time": { "from": "now-6h", "to": "now" },
+  "time": { "from": "now-5m", "to": "now" },
+  "timepicker": {},
   "timezone": "",
-  "title": "Node.js / Express Server Dashboard",
+  "title": "Node.js Server Monitoring",
   "version": 1
 }
