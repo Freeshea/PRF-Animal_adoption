@@ -127,6 +127,7 @@ Mainly what you should definitely do if you want to replicate the work I have do
 * Go to Dashboards -> Create dashboard -> Import dashboard -> Drag and drop the ```graphs.json``` file from the ```DevOps-kieg/monitoring``` folder -> Import
 * You should now see the graphs.
 * You can do the same with the ```nginx_graphs.json```
+* Additionally you can check if nginx metrics is setup correctly on the ```http://localhost:9113/metrics``` 
 
 ## Additional test with Postman
 You can test the connection and HTTP request graphs with Postman application, for example:
