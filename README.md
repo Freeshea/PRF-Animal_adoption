@@ -100,6 +100,7 @@ Mainly what you should definitely do if you want to replicate the work I have do
   cd DevOps-kieg/jenkins
   docker compose up -d
   ```
+* Download docker to the jenkins container, because it will use docker commands for image building. 
 * Navigate in your browser to ```localhost:8080```, login with default credentials ```(/var/jenkins_home/secrets/initialAdminPassword)```
 * Install suggested plugins and some additional plugins: NodeJS, Docker Pipeline, Blue Ocean, GitHub, (and basically all Docker-related plugins)
 * Create Global Tool: Add NodeJS (I named it NodeJS20 and used the NodeJS 20.19.5 version)
