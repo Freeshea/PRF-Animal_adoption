@@ -1,32 +1,24 @@
-# -----------------------
 # 1. STAGE – Build
-# -----------------------
 FROM node:20 AS build
-
 WORKDIR /app
 
-# Dependency file-ok bemásolása
+# Copy dependencies 
 COPY package*.json ./
 COPY tsconfig.json ./
 
-# Dependencies telepítése
 RUN npm install
 
-# Teljes source bemásolása
+# Copy all
 COPY . .
 
-# Typescript build → build/ mappába
 RUN npm run build
 
-
-# -----------------------
 # 2. STAGE – Production
-# -----------------------
+# Alpine is too light, bcrypt needed for login auth
 FROM node:20-bullseye
 
 WORKDIR /app
 
-# Csak a szükséges fájlok copy
 COPY --from=build /app/build ./build
 COPY --from=build /app/node_modules ./node_modules
 COPY package.json ./

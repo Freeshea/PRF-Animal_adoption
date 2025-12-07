@@ -1,3 +1,5 @@
+// Obsolete file, because you should manually trigger the deployment from images with docker compose command,
+// (Jenkins containter does not have docker compose installed so the compose command would not work)
 pipeline {
     agent any
 

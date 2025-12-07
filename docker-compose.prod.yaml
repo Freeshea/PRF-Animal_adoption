@@ -10,6 +10,7 @@ services:
     volumes:
       - mongo_data:/data/db
 
+# Mongorestore to mongo container
   mongo-seed:
     image: mongo
     depends_on:

@@ -46,4 +46,5 @@ client/dist
 .DS_Store
 Thumbs.db
 
+# Jenkins
 DevOps-kieg/jenkins/jenkins_home

@@ -2,11 +2,12 @@ global:
   scrape_interval: 5s
 
 scrape_configs:
-# Only server metrics
+# Server metrics
   - job_name: 'server-metrics'
     static_configs:
       - targets: ['server:5000']
 
+# Nginx metrics with exporter
   - job_name: 'nginx'
     static_configs:
       - targets: ['nginx-exporter:9113']

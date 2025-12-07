@@ -1,3 +1,4 @@
+// First Jenkinsfile, obsolete now because the client and server image builds are separate files.
 pipeline {
     agent any
 

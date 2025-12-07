@@ -1,4 +1,4 @@
-# Animal Adoption Site
+# Animal Adoption Site (& DevOps)
 
 ## Project Overview
 
